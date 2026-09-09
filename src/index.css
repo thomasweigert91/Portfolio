@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-fraunces: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-timber-950: #0F0C0A;
+  --color-timber-900: #14110F;
+  --color-timber-850: #1A1613;
+  --color-timber-800: #221C18;
+  --color-timber-700: #2E2621;
+  --color-timber-600: #423831;
+
+  --color-amber-warm: #E5983A;
+  --color-amber-honey: #F59E0B;
+  --color-pine-sage: #52795D;
+  --color-pine-dark: #2D4434;
+  --color-terracotta: #C86446;
+  --color-linen-light: #F4EFEA;
+}
+
+@layer base {
+  html {
+    background-color: #14110F;
+    color: #F3EFEA;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Custom warm scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #14110F;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2E2621;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #423831;
+  }
+}
+
+/* Warm Glassmorphism & Card Styles */
+.warm-panel {
+  background: rgba(26, 22, 19, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 152, 58, 0.12);
+}
+
+.warm-panel-glow {
+  background: rgba(26, 22, 19, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 152, 58, 0.25);
+  box-shadow: 0 0 35px rgba(229, 152, 58, 0.08);
+}
+
+.glow-text-amber {
+  text-shadow: 0 0 24px rgba(229, 152, 58, 0.4);
+}
