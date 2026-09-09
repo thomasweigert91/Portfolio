@@ -260,8 +260,8 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.fillStyle = 'rgba(243, 239, 234, 0.22)';
       const telemetryTag = lang === 'de' ? 'NATUR & HANDWERK' : 'NATURE & CRAFT';
-      ctx.fillText(`${telemetryTag} // ${(p * 100).toFixed(0)}%`, 36, height - 24);
-      ctx.fillText(`HENSTEDT-ULZBURG // HAMBURG`, width - 210, height - 24);
+      ctx.fillText(`${telemetryTag} · ${(p * 100).toFixed(0)}%`, 36, height - 24);
+      ctx.fillText(`HENSTEDT-ULZBURG · HAMBURG`, width - 210, height - 24);
       ctx.restore();
 
       ctx.restore();
@@ -386,16 +386,16 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           }}
         >
           <div className="max-w-2xl pointer-events-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#201A16]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-widest uppercase mb-5 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>{scenes[0].sceneNumber} // {scenes[0].sceneName}</span>
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-6 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span>{scenes[0].sceneNumber} · {scenes[0].sceneName}</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-6xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.12] mb-6 drop-shadow-md">
+            <h1 className="text-4xl sm:text-6xl lg:text-6xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.18] mb-6 drop-shadow-md">
               {scenes[0].heading}
             </h1>
 
-            <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed mb-8 max-w-xl">
+            <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed mb-9 max-w-xl">
               {scenes[0].description}
             </p>
 
@@ -403,25 +403,23 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
               {scenes[0].ctaText && (
                 <a
                   href={scenes[0].ctaHref || '#projects'}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all shadow-[0_0_25px_rgba(229,152,58,0.3)] active:scale-95"
+                  className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
                 >
                   <span>{scenes[0].ctaText}</span>
+                  <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
+                    <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
+                  </span>
                 </a>
               )}
 
               {scenes[0].secondaryCtaText && (
                 <a
                   href={scenes[0].secondaryCtaHref || '#contact'}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm tracking-wide border border-white/15 transition-all backdrop-blur-md active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium text-sm tracking-wide border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
                 >
                   <span>{scenes[0].secondaryCtaText}</span>
                 </a>
               )}
-            </div>
-
-            <div className="mt-10 flex items-center gap-2 text-stone-400 text-xs font-mono">
-              <ArrowDown className="w-3.5 h-3.5 animate-bounce text-amber-400" />
-              <span>{ui.hero.scrollHint}</span>
             </div>
           </div>
         </div>
@@ -446,16 +444,16 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           }}
         >
           <div className="max-w-xl pointer-events-auto text-right">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#201A16]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-widest uppercase mb-5 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>{scenes[1].sceneNumber} // {scenes[1].sceneName}</span>
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-6 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span>{scenes[1].sceneNumber} · {scenes[1].sceneName}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.15] mb-5 drop-shadow-md">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.18] mb-5 drop-shadow-md">
               {scenes[1].heading}
             </h2>
 
-            <p className="text-base text-stone-300 font-light leading-relaxed mb-8">
+            <p className="text-base text-stone-300 font-light leading-relaxed mb-9">
               {scenes[1].description}
             </p>
 
@@ -463,17 +461,19 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
               {scenes[1].ctaText && (
                 <a
                   href={scenes[1].ctaHref || '#projects'}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all shadow-[0_0_25px_rgba(229,152,58,0.3)] active:scale-95"
+                  className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
                 >
                   <span>{scenes[1].ctaText}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
+                    <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
+                  </span>
                 </a>
               )}
 
               {scenes[1].secondaryCtaText && (
                 <a
                   href={scenes[1].secondaryCtaHref || '#experience'}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm tracking-wide border border-white/15 transition-all backdrop-blur-md active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium text-sm tracking-wide border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
                 >
                   <span>{scenes[1].secondaryCtaText}</span>
                 </a>
@@ -491,7 +491,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           </div>
         )}
 
-        {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert) */}
+        {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert mit Double-Bezel Architektur) */}
         <div 
           className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center px-6 max-w-3xl mx-auto"
           style={{
@@ -501,47 +501,53 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
             transition: 'opacity 0.2s ease-out'
           }}
         >
-          <div className="w-full warm-panel-glow rounded-3xl p-8 sm:p-11 text-center pointer-events-auto border border-amber-500/30 bg-[#1A1613]/90 backdrop-blur-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-950/60 border border-amber-400/40 text-amber-300 text-xs font-mono tracking-widest uppercase mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>{scenes[2].sceneNumber} // {scenes[2].sceneName}</span>
-            </div>
+          {/* Double-Bezel Outer Shell */}
+          <div className="w-full p-2 rounded-[2.25rem] bg-amber-500/[0.07] ring-1 ring-amber-500/20 shadow-2xl pointer-events-auto">
+            {/* Inner Core */}
+            <div className="rounded-[calc(2.25rem-0.5rem)] p-8 sm:p-11 text-center bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-amber-950/60 border border-amber-400/30 text-amber-300 text-xs font-mono tracking-wider mb-5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>{scenes[2].sceneNumber} · {scenes[2].sceneName}</span>
+              </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FDFBF7] font-fraunces mb-4">
-              {scenes[2].heading}
-            </h2>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FDFBF7] font-fraunces mb-4 leading-[1.2]">
+                {scenes[2].heading}
+              </h2>
 
-            <p className="text-base text-stone-300 font-light leading-relaxed max-w-xl mx-auto mb-8">
-              {scenes[2].description}
-            </p>
+              <p className="text-base text-stone-300 font-light leading-relaxed max-w-xl mx-auto mb-8">
+                {scenes[2].description}
+              </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {scenes[2].ctaText && (
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                {scenes[2].ctaText && (
+                  <a
+                    href={scenes[2].ctaHref || '#contact'}
+                    className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
+                  >
+                    <span>{scenes[2].ctaText}</span>
+                    <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
+                      <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
+                    </span>
+                  </a>
+                )}
+
                 <a
-                  href={scenes[2].ctaHref || '#contact'}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all shadow-[0_0_25px_rgba(229,152,58,0.4)] active:scale-95"
+                  href={`mailto:${data.profile.email}`}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-stone-200 font-mono text-xs border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
                 >
-                  <span>{scenes[2].ctaText}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>{data.profile.email}</span>
                 </a>
-              )}
+              </div>
 
-              <a
-                href={`mailto:${data.profile.email}`}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-stone-200 font-mono text-xs border border-white/10 transition-all backdrop-blur-md"
-              >
-                <span>{data.profile.email}</span>
-              </a>
-            </div>
-
-            {/* Stats aus Lebenslauf */}
-            <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-              {data.profile.stats.map((stat, i) => (
-                <div key={i}>
-                  <div className="text-xl sm:text-2xl font-bold font-fraunces text-amber-300 tracking-tight">{stat.value}</div>
-                  <div className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">{stat.label}</div>
-                </div>
-              ))}
+              {/* Stats aus Lebenslauf */}
+              <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                {data.profile.stats.map((stat, i) => (
+                  <div key={i}>
+                    <div className="text-xl sm:text-2xl font-bold font-fraunces text-amber-300 tracking-tight">{stat.value}</div>
+                    <div className="text-[11px] font-mono text-stone-400 uppercase tracking-wider mt-0.5">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -12,32 +12,33 @@ export const ExperienceAndSkills: React.FC = () => {
         {/* Left Column: Werdegang & Arbeitszeugnis (7 cols) */}
         <div className="lg:col-span-7 space-y-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-300 text-xs font-mono uppercase tracking-wider mb-4">
-              <Briefcase className="w-3.5 h-3.5 text-amber-400" />
-              <span>{ui.experience.badge}</span>
+            <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+              {ui.experience.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-[#FDFBF7] tracking-tight">
-              {ui.experience.titlePart1}<span className="italic text-amber-300">{ui.experience.titleHighlight}</span>.
+            <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.18]">
+              {ui.experience.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.experience.titleHighlight}</span>.
             </h2>
           </div>
 
-          {/* Arbeitszeugnis Highlight Card */}
-          <div className="p-8 rounded-3xl bg-[#1C1814] border border-amber-500/30 relative overflow-hidden shadow-xl">
-            <Quote className="w-12 h-12 text-amber-500/15 absolute -bottom-2 -right-2 pointer-events-none" />
-            <div className="flex items-center gap-3 mb-4">
-              <span className="px-2.5 py-1 rounded-full bg-amber-950/80 border border-amber-500/40 text-amber-300 text-[11px] font-mono uppercase">
-                {data.referenceLetter.badge}
-              </span>
-            </div>
-            <p className="text-sm sm:text-base text-stone-200 italic font-light leading-relaxed mb-6">
-              „{data.referenceLetter.quote}“
-            </p>
-            <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs font-mono">
-              <div>
-                <span className="text-white font-medium">{data.referenceLetter.author}</span>
-                <span className="text-stone-400"> ({data.referenceLetter.role})</span>
+          {/* Arbeitszeugnis Highlight Card (Double-Bezel) */}
+          <div className="p-1.5 rounded-[2rem] bg-white/[0.03] ring-1 ring-amber-500/25 shadow-xl">
+            <div className="p-7 sm:p-8 rounded-[calc(2rem-0.375rem)] bg-[#191512] relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
+              <Quote className="w-12 h-12 text-amber-500/15 absolute -bottom-2 -right-2 pointer-events-none" />
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-3 py-1 rounded-full bg-amber-950/70 border border-amber-500/30 text-amber-300 text-[11px] font-mono uppercase tracking-wider">
+                  {data.referenceLetter.badge}
+                </span>
               </div>
-              <span className="text-amber-400">{data.referenceLetter.company}</span>
+              <p className="text-sm sm:text-base text-stone-200 italic font-light leading-relaxed mb-6">
+                „{data.referenceLetter.quote}“
+              </p>
+              <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs font-mono">
+                <div>
+                  <span className="text-white font-medium">{data.referenceLetter.author}</span>
+                  <span className="text-stone-400"> ({data.referenceLetter.role})</span>
+                </div>
+                <span className="text-amber-400">{data.referenceLetter.company}</span>
+              </div>
             </div>
           </div>
 
@@ -45,7 +46,7 @@ export const ExperienceAndSkills: React.FC = () => {
           <div className="relative border-l border-white/10 pl-6 sm:pl-8 space-y-12">
             {data.experience.map((item, idx) => (
               <div key={idx} className="relative group">
-                {/* Timeline Dot */}
+                {/* Timeline Node */}
                 <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#14110F] border-2 border-amber-400 group-hover:scale-125 group-hover:bg-amber-400 transition-all shadow-[0_0_10px_rgba(229,152,58,0.4)]" />
 
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
@@ -96,7 +97,7 @@ export const ExperienceAndSkills: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {data.education.map((edu, eIdx) => (
-                <div key={eIdx} className="p-4 rounded-2xl bg-[#1A1613] border border-white/10">
+                <div key={eIdx} className="p-4 rounded-2xl bg-[#191512] border border-white/10">
                   <div className="text-[11px] font-mono text-amber-400 mb-1">{edu.period}</div>
                   <div className="text-sm font-bold font-fraunces text-white">{edu.title}</div>
                   <div className="text-xs text-stone-400 mt-1">{edu.institution} ({edu.location})</div>
@@ -109,9 +110,8 @@ export const ExperienceAndSkills: React.FC = () => {
         {/* Right Column: Fähigkeiten-Matrix & Sprachen (5 cols) */}
         <div className="lg:col-span-5 space-y-8">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-300 text-xs font-mono uppercase tracking-wider mb-4">
-              <Terminal className="w-3.5 h-3.5 text-amber-400" />
-              <span>{ui.experience.skillsBadge}</span>
+            <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+              {ui.experience.skillsBadge}
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-fraunces text-white mb-6">
               {ui.experience.skillsTitle}
@@ -119,23 +119,24 @@ export const ExperienceAndSkills: React.FC = () => {
           </div>
 
           {/* Skill Kategorien aus Lebenslauf */}
-          <div className="space-y-6">
+          <div className="space-y-5">
             {data.skillCategories.map((cat, cIdx) => (
-              <div key={cIdx} className="p-6 rounded-3xl bg-[#1A1613] border border-white/10 space-y-3">
-                <h3 className="text-sm font-bold font-fraunces text-amber-300 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  <span>{cat.title}</span>
-                </h3>
+              <div key={cIdx} className="p-1.5 rounded-[1.75rem] bg-white/[0.02] ring-1 ring-white/10">
+                <div className="p-5 sm:p-6 rounded-[calc(1.75rem-0.375rem)] bg-[#191512] space-y-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
+                  <h3 className="text-sm font-bold font-fraunces text-amber-300 tracking-wide">
+                    {cat.title}
+                  </h3>
 
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {cat.skills.map((skill) => (
-                    <span 
-                      key={skill}
-                      className="px-3 py-1.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-stone-200 transition-colors"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {cat.skills.map((skill) => (
+                      <span 
+                        key={skill} 
+                        className="px-3 py-1.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-stone-200 transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

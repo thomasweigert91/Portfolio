@@ -62,7 +62,7 @@ const PortfolioApp: React.FC = () => {
                     <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
                       <img src={scene.imagePlate} alt={scene.sceneName} className="w-full h-full object-cover" />
                       <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-mono text-amber-300 border border-white/10">
-                        {scene.sceneNumber} // {scene.sceneName}
+                        {scene.sceneNumber} · {scene.sceneName}
                       </div>
                     </div>
                   </div>
@@ -80,7 +80,7 @@ const PortfolioApp: React.FC = () => {
                     {scene.ctaText && (
                       <a
                         href={scene.ctaHref}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-[#14110F] font-semibold text-xs tracking-wide shadow-md"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-[0.98] transition-all duration-200 text-[#14110F] font-semibold text-xs tracking-wide shadow-md"
                       >
                         <span>{scene.ctaText}</span>
                         <ArrowRight className="w-3.5 h-3.5" />

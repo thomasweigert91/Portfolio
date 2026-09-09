@@ -70,10 +70,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Desktop Controls: Language Toggle [ DE | EN ] & Motion Mode */}
         <div className="hidden lg:flex items-center gap-3">
           {/* Language Toggle */}
-          <div className="flex items-center p-0.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono">
+          <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono">
             <button
               onClick={() => setLang('de')}
-              className={`px-2.5 py-1 rounded-lg transition-all font-semibold cursor-pointer ${
+              className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'de'
                   ? 'bg-amber-500 text-[#14110F] shadow-sm'
                   : 'text-stone-400 hover:text-white'
@@ -86,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-stone-600 text-[10px] px-0.5 select-none">|</span>
             <button
               onClick={() => setLang('en')}
-              className={`px-2.5 py-1 rounded-lg transition-all font-semibold cursor-pointer ${
+              className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'en'
                   ? 'bg-amber-500 text-[#14110F] shadow-sm'
                   : 'text-stone-400 hover:text-white'
@@ -101,10 +101,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Motion Mode Control */}
           <button
             onClick={onToggleReducedMotion}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-mono transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-mono transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 cursor-pointer ${
               reducedMotion
-                ? 'bg-amber-950/60 border-amber-500/50 text-amber-300'
-                : 'bg-white/5 border-white/10 text-stone-300 hover:text-white hover:border-white/20'
+                ? 'bg-amber-950/60 border-amber-500/50 text-amber-300 shadow-[0_0_15px_rgba(229,152,58,0.2)]'
+                : 'bg-white/[0.04] border-white/10 text-stone-300 hover:text-white hover:border-white/20'
             }`}
             title={ui.motion.title}
           >
@@ -116,10 +116,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Controls (Quick DE|EN + Hamburger) */}
         <div className="flex items-center gap-2.5 md:hidden">
           {/* Mobile quick language toggle */}
-          <div className="flex items-center p-0.5 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono">
+          <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] font-mono">
             <button
               onClick={() => setLang('de')}
-              className={`px-2 py-1 rounded-lg font-semibold ${
+              className={`px-2 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'de' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-stone-600 text-[9px] px-0.5">|</span>
             <button
               onClick={() => setLang('en')}
-              className={`px-2 py-1 rounded-lg font-semibold ${
+              className={`px-2 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'en' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
@@ -138,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 cursor-pointer"
+            className="p-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 cursor-pointer active:scale-95 transition-transform"
             aria-label="Navigation umschalten"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

@@ -200,14 +200,14 @@ export const uiTranslations: Record<Language, {
       static: "Modus: Statisch",
       motion: "60 FPS Motion",
       title: "Zwischen 60FPS Bewegung und statischem Lesemodus wechseln",
-      reducedNotice: "Modus für reduzierte Bewegung aktiv — Statische Leseansicht",
+      reducedNotice: "Modus für reduzierte Bewegung aktiv: Statische Leseansicht",
       enableMotion: "60 FPS Scroll-Motion aktivieren"
     },
     projects: {
-      badge: "Ausgewählte Praxisprojekte // Echte Software",
+      badge: "Ausgewählte Praxisprojekte",
       titlePart1: "Architektur, die ",
       titleHighlight: "Zuverlässigkeit beweist",
-      description: "Echte, produktive Kundenanwendungen aus meiner Praxis bei melting elements — von geschäftskritischen bAV-Verwaltungssystemen bis hin zu Greenfield-Apps mit Next.js für Energiekonzerne.",
+      description: "Echte, produktive Kundenanwendungen aus meiner Praxis bei melting elements: von geschäftskritischen bAV-Verwaltungssystemen bis hin zu Greenfield-Apps mit Next.js für Energiekonzerne.",
       detailsButton: "Details ansehen",
       modalOverview: "Projektübersicht & Kontext",
       modalMilestones: "Technische Meilensteine & Kernleistungen",
@@ -217,24 +217,24 @@ export const uiTranslations: Record<Language, {
       modalInquiry: "Projektbezogene Anfrage"
     },
     passions: {
-      badge: "Persönlichkeit // Werte & Leidenschaften",
-      titlePart1: "Was mich antreibt — ",
+      badge: "Persönlichkeit & Werte",
+      titlePart1: "Was mich antreibt: ",
       titleHighlight: "neben dem Code",
       description: "Großartige Software wird von Menschen für Menschen geschrieben. Meine Leidenschaften außerhalb des Terminals prägen meine Arbeitsweise als Entwickler maßgeblich:",
       footerNote: "Teil meiner Entwickler-DNA"
     },
     experience: {
-      badge: "Berufserfahrung // Werdegang",
+      badge: "Berufserfahrung",
       titlePart1: "Vom Bankkaufmann zum ",
       titleHighlight: "Frontend Engineer",
       educationTitle: "Ausbildung & Weiterbildung",
-      skillsBadge: "Technisches Repertoire // Skills",
+      skillsBadge: "Technisches Repertoire",
       skillsTitle: "Fundiertes Technologie-Set",
       languagesTitle: "Sprachkenntnisse",
       languagesSubtitle: "Verhandlungssicher im technischen Alltag"
     },
     contact: {
-      badge: "Direkter Draht // Kontakt",
+      badge: "Kontakt",
       titlePart1: "Lass uns ins ",
       titleHighlight: "Gespräch kommen",
       description: "Ob neue Festanstellung als Frontend Engineer, spannende Herausforderungen in React & TypeScript oder Kennenlernen bei einem Kaffee: Ich freue mich auf Ihre Nachricht.",
@@ -257,7 +257,7 @@ export const uiTranslations: Record<Language, {
       directNotice: "* Direkter Kontakt zu Thomas Weigert",
       submittedTitle: "Nachricht vorbereitet!",
       submittedText: "In der Live-Version leitet dieses Formular direkt an mein Postfach weiter. Sie können mir auch jederzeit direkt eine E-Mail schreiben:",
-      draftPreview: "// Vorbereiteter Entwurf:",
+      draftPreview: "Vorbereiteter Entwurf:",
       resetButton: "Neuen Entwurf starten",
       errors: {
         name: "Bitte geben Sie Ihren Namen ein",
@@ -272,9 +272,9 @@ export const uiTranslations: Record<Language, {
     },
     hero: {
       loading: "LADE BÜHNE & HANDWERKSWELT...",
-      scrollHint: "Scrollen, um Werdegang & Projekte zu erkunden",
-      trans1: "// Aus der Ruhe des Waldes → Zur Präzision des Codes",
-      trans2: "// Abenddämmerung bricht herein → Wärme & Verlässlichkeit"
+      scrollHint: "Werdegang & Projekte erkunden",
+      trans1: "Aus der Ruhe des Waldes zur Präzision des Codes",
+      trans2: "Abenddämmerung, Wärme und Verlässlichkeit"
     }
   },
   en: {
@@ -289,14 +289,14 @@ export const uiTranslations: Record<Language, {
       static: "Mode: Static",
       motion: "60 FPS Motion",
       title: "Toggle between 60FPS motion and static reading mode",
-      reducedNotice: "Reduced motion mode active — Static reading view",
+      reducedNotice: "Reduced motion mode active: Static reading view",
       enableMotion: "Enable 60 FPS scroll motion"
     },
     projects: {
-      badge: "Selected Real-World Projects // Production Software",
+      badge: "Selected Real-World Projects",
       titlePart1: "Architecture that proves ",
       titleHighlight: "reliability in production",
-      description: "Proven, production customer applications from my experience at melting elements — from mission-critical pension administration systems to greenfield Next.js apps for energy corporations.",
+      description: "Proven, production customer applications from my experience at melting elements: from mission-critical pension administration systems to greenfield Next.js apps for energy corporations.",
       detailsButton: "View details",
       modalOverview: "Project Overview & Context",
       modalMilestones: "Technical Milestones & Core Achievements",
@@ -306,24 +306,24 @@ export const uiTranslations: Record<Language, {
       modalInquiry: "Inquire about this project"
     },
     passions: {
-      badge: "Personality // Values & Passions",
-      titlePart1: "What drives me — ",
+      badge: "Personality & Values",
+      titlePart1: "What drives me: ",
       titleHighlight: "beyond the code",
       description: "Great software is written by people for people. My passions outside the terminal fundamentally shape how I work as an engineer:",
       footerNote: "Part of my developer DNA"
     },
     experience: {
-      badge: "Professional Career // Journey",
+      badge: "Career & Journey",
       titlePart1: "From Banking Specialist to ",
       titleHighlight: "Frontend Engineer",
       educationTitle: "Education & Advanced Training",
-      skillsBadge: "Technical Repertoire // Skills",
+      skillsBadge: "Technical Repertoire",
       skillsTitle: "Core Technology Stack",
       languagesTitle: "Languages",
       languagesSubtitle: "Proficient in international engineering environments"
     },
     contact: {
-      badge: "Direct Channel // Get in Touch",
+      badge: "Contact",
       titlePart1: "Let’s start a ",
       titleHighlight: "conversation",
       description: "Whether you have an open Frontend Engineer position, ambitious React & TypeScript challenges, or just want to connect over coffee: I look forward to hearing from you.",
@@ -346,7 +346,7 @@ export const uiTranslations: Record<Language, {
       directNotice: "* Direct communication with Thomas Weigert",
       submittedTitle: "Message Prepared!",
       submittedText: "In production, this forwards directly to my personal inbox. You can also reach out via email anytime:",
-      draftPreview: "// Prepared Draft Payload:",
+      draftPreview: "Prepared Draft Payload:",
       resetButton: "Start new draft",
       errors: {
         name: "Please enter your name",
@@ -361,9 +361,9 @@ export const uiTranslations: Record<Language, {
     },
     hero: {
       loading: "INITIALIZING CINEMATIC STAGE...",
-      scrollHint: "Scroll to explore journey & selected works",
-      trans1: "// From the calm of the woods → To the precision of code",
-      trans2: "// Twilight descends → Warmth, trust & reliability"
+      scrollHint: "Explore journey & selected works",
+      trans1: "From the calm of the woods to the precision of code",
+      trans2: "Twilight warmth, trust and reliability"
     }
   }
 };
@@ -409,7 +409,7 @@ export const portfolioDataDE: PortfolioData = {
       icon: "Music",
       title: "Country-Musik & Akustik",
       subtitle: "Echte Geschichten & handgemachter Klang",
-      description: "Ob fingergepickte Akustikgitarre oder mitreißende Country-Balladen: Ich liebe Musik, die ungeschminkt ist und etwas erzählt. Genau wie sauberer Code — kein überflüssiger Zierrat, sondern Substanz.",
+      description: "Ob fingergepickte Akustikgitarre oder mitreißende Country-Balladen: Ich liebe Musik, die ungeschminkt ist und etwas erzählt. Genau wie sauberer Code: kein überflüssiger Zierrat, sondern Substanz.",
       tag: "Authentizität"
     },
     {
@@ -434,9 +434,9 @@ export const portfolioDataDE: PortfolioData = {
       sceneNumber: "01",
       sceneName: "Wurzeln & Natur",
       heading: "Ehrliches Handwerk, durchdachter Code und ein Gespür für das Wesentliche.",
-      subheading: "Thomas Weigert — Frontend Engineer aus Henstedt-Ulzburg bei Hamburg.",
+      subheading: "Thomas Weigert · Frontend Engineer aus Henstedt-Ulzburg bei Hamburg.",
       description: "Gute Software entsteht wie ein harmonisches Stück Musik: mit Ruhe, Hingabe und einem festen Fundament. Willkommen auf meiner persönlichen Portfolio-Seite.",
-      ctaText: "Projekte & Werdegang erkunden ↓",
+      ctaText: "Projekte & Werdegang erkunden",
       ctaHref: "#projects",
       secondaryCtaText: "Kontakt aufnehmen",
       secondaryCtaHref: "#contact",
@@ -450,7 +450,7 @@ export const portfolioDataDE: PortfolioData = {
       heading: "Vom Finanzsektor zur modernen Frontend-Architektur.",
       subheading: "Analytische Schärfe trifft auf moderne React- und TypeScript-Ökosysteme.",
       description: "Ob saubere Caching-Strategien mit TanStack Query, modulare Komponenten in Nx-Monorepos oder barrierefreie UIs: Ich baue Software, die Nutzer begeistert und Unternehmen verlässlich voranbringt.",
-      ctaText: "Echte Praxisprojekte ansehen →",
+      ctaText: "Echte Praxisprojekte ansehen",
       ctaHref: "#projects",
       secondaryCtaText: "Mein Werdegang",
       secondaryCtaHref: "#experience",
@@ -478,7 +478,7 @@ export const portfolioDataDE: PortfolioData = {
       id: "bav-admin-tool",
       title: "Admin-Tool für betriebliche Altersvorsorge",
       category: "Verwaltungsplattform & Bestandsanwendung",
-      period: "08/2023 – 04/2026",
+      period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenanwendung zur betrieblichen Altersvorsorge",
       image: "/assets/proj1.jpg",
@@ -502,7 +502,7 @@ export const portfolioDataDE: PortfolioData = {
       id: "mobile-onboarding-hr",
       title: "Mobile Onboarding-Anwendung und HR-Dashboard",
       category: "Greenfield Mobile & Web",
-      period: "06/2023 – 07/2025",
+      period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Energiekonzern",
       image: "/assets/proj2.jpg",
@@ -526,7 +526,7 @@ export const portfolioDataDE: PortfolioData = {
       id: "vorsorgeportale",
       title: "Vorsorgeportale für betriebliche Altersvorsorge",
       category: "Kundenportal",
-      period: "08/2023 – 04/2026",
+      period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenportale zur betrieblichen Altersvorsorge",
       image: "/assets/proj3.jpg",
@@ -559,7 +559,7 @@ export const portfolioDataDE: PortfolioData = {
 
   experience: [
     {
-      period: "04/2023 – 04/2026",
+      period: "04/2023 - 04/2026",
       role: "Frontend Engineer",
       company: "melting elements gmbh / Melting Experience GmbH",
       location: "Hamburg, Deutschland",
@@ -573,7 +573,7 @@ export const portfolioDataDE: PortfolioData = {
       skills: ["React.js", "Next.js", "TypeScript", "Nx Monorepo", "TanStack Query", "GraphQL", "REST", "Scrum"]
     },
     {
-      period: "01/2021 – 07/2022",
+      period: "01/2021 - 07/2022",
       role: "Immobilienfinanzierer",
       company: "McMakler",
       location: "Hamburg, Deutschland",
@@ -585,7 +585,7 @@ export const portfolioDataDE: PortfolioData = {
       skills: ["Finanzierungsstrukturierung", "Verhandlungsführung", "Analytische Bonitätsprüfung", "Kundenberatung"]
     },
     {
-      period: "11/2015 – 06/2020",
+      period: "11/2015 - 06/2020",
       role: "Privatkredit Berater",
       company: "Finanzcheck, Smava",
       location: "Hamburg, Deutschland",
@@ -597,8 +597,8 @@ export const portfolioDataDE: PortfolioData = {
       skills: ["Datenbasierte Kreditanalyse", "Prozessoptimierung", "Kundenkommunikation"]
     },
     {
-      period: "02/2013 – 10/2015",
-      role: "Bankkaufmann (Ausbildung 08/2010 – 02/2013)",
+      period: "02/2013 - 10/2015",
+      role: "Bankkaufmann (Ausbildung 08/2010 - 02/2013)",
       company: "Sparkasse Stade-Altes Land",
       location: "Stade, Deutschland",
       description: "Ganzheitliche Kundenberatung zu Spar-, Anlage- und Vorsorgeprodukten sowie Abwicklung des täglichen Bankgeschäfts.",
@@ -612,25 +612,25 @@ export const portfolioDataDE: PortfolioData = {
 
   education: [
     {
-      period: "07/2026 – Aktuell",
+      period: "07/2026 - Aktuell",
       title: "Advanced Software Development",
       institution: "neuefische GmbH - School and Pool for Digital Talent",
       location: "Remote"
     },
     {
-      period: "10/2022 – 01/2023",
+      period: "10/2022 - 01/2023",
       title: "Web Development Bootcamp",
       institution: "neuefische GmbH - School and Pool for Digital Talent",
       location: "Remote"
     },
     {
-      period: "08/2010 – 02/2013",
+      period: "08/2010 - 02/2013",
       title: "Ausbildung zum Bankkaufmann",
       institution: "Sparkasse Stade-Altes Land",
       location: "Stade, Deutschland"
     },
     {
-      period: "07/2007 – 05/2010",
+      period: "07/2007 - 05/2010",
       title: "Fachabitur Wirtschaft",
       institution: "BBS 2 Stade",
       location: "Stade, Deutschland"
@@ -707,7 +707,7 @@ export const portfolioDataEN: PortfolioData = {
       icon: "Music",
       title: "Country Music & Acoustics",
       subtitle: "Genuine stories & handmade sound",
-      description: "From fingerpicked acoustic guitars to soulful country ballads: I love music that is unvarnished and tells a meaningful story. Just like clean code — no decorative fluff, pure substance.",
+      description: "From fingerpicked acoustic guitars to soulful country ballads: I love music that is unvarnished and tells a meaningful story. Just like clean code: no decorative fluff, pure substance.",
       tag: "Authenticity"
     },
     {
@@ -732,9 +732,9 @@ export const portfolioDataEN: PortfolioData = {
       sceneNumber: "01",
       sceneName: "Roots & Nature",
       heading: "Honest craftsmanship, thoughtful code, and an eye for the essential.",
-      subheading: "Thomas Weigert — Frontend Engineer based near Hamburg, Germany.",
+      subheading: "Thomas Weigert · Frontend Engineer based near Hamburg, Germany.",
       description: "Great software is composed like an honest piece of music: with patience, dedication, and a solid foundation. Welcome to my personal portfolio.",
-      ctaText: "Explore Projects & Journey ↓",
+      ctaText: "Explore Projects & Journey",
       ctaHref: "#projects",
       secondaryCtaText: "Get in touch",
       secondaryCtaHref: "#contact",
@@ -748,7 +748,7 @@ export const portfolioDataEN: PortfolioData = {
       heading: "From the financial sector to modern frontend architecture.",
       subheading: "Analytical precision meets modern React and TypeScript ecosystems.",
       description: "Whether orchestrating client-side caching with TanStack Query, designing modular components in Nx monorepos, or crafting accessible UIs: I engineer software that users trust and businesses rely upon.",
-      ctaText: "View Featured Projects →",
+      ctaText: "View Featured Projects",
       ctaHref: "#projects",
       secondaryCtaText: "My Career Path",
       secondaryCtaHref: "#experience",
@@ -776,7 +776,7 @@ export const portfolioDataEN: PortfolioData = {
       id: "bav-admin-tool",
       title: "Admin Tool for Company Pension Schemes",
       category: "Enterprise Administration Platform",
-      period: "08/2023 – 04/2026",
+      period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Enterprise Pension & Insurance Administration Application",
       image: "/assets/proj1.jpg",
@@ -800,7 +800,7 @@ export const portfolioDataEN: PortfolioData = {
       id: "mobile-onboarding-hr",
       title: "Mobile Onboarding App and HR Dashboard",
       category: "Greenfield Mobile & Web",
-      period: "06/2023 – 07/2025",
+      period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Leading Energy Corporation",
       image: "/assets/proj2.jpg",
@@ -824,7 +824,7 @@ export const portfolioDataEN: PortfolioData = {
       id: "vorsorgeportale",
       title: "Customer Portals for Company Pensions",
       category: "Customer Portal",
-      period: "08/2023 – 04/2026",
+      period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Customer Portals for Corporate Pension Schemes",
       image: "/assets/proj3.jpg",
@@ -857,7 +857,7 @@ export const portfolioDataEN: PortfolioData = {
 
   experience: [
     {
-      period: "04/2023 – 04/2026",
+      period: "04/2023 - 04/2026",
       role: "Frontend Engineer",
       company: "melting elements gmbh / Melting Experience GmbH",
       location: "Hamburg, Germany",
@@ -871,7 +871,7 @@ export const portfolioDataEN: PortfolioData = {
       skills: ["React.js", "Next.js", "TypeScript", "Nx Monorepo", "TanStack Query", "GraphQL", "REST", "Scrum"]
     },
     {
-      period: "01/2021 – 07/2022",
+      period: "01/2021 - 07/2022",
       role: "Real Estate Financing Specialist",
       company: "McMakler",
       location: "Hamburg, Germany",
@@ -883,7 +883,7 @@ export const portfolioDataEN: PortfolioData = {
       skills: ["Financing Structuring", "Negotiation", "Credit Risk Analysis", "Client Advisory"]
     },
     {
-      period: "11/2015 – 06/2020",
+      period: "11/2015 - 06/2020",
       role: "Consumer Credit Consultant",
       company: "Finanzcheck, Smava",
       location: "Hamburg, Germany",
@@ -895,8 +895,8 @@ export const portfolioDataEN: PortfolioData = {
       skills: ["Data-driven Credit Analysis", "Process Optimization", "Client Communication"]
     },
     {
-      period: "02/2013 – 10/2015",
-      role: "Certified Banking Specialist (Traineeship 08/2010 – 02/2013)",
+      period: "02/2013 - 10/2015",
+      role: "Certified Banking Specialist (Traineeship 08/2010 - 02/2013)",
       company: "Sparkasse Stade-Altes Land",
       location: "Stade, Germany",
       description: "Advisory services for retail clients across savings, investments, and pension products alongside daily banking operations.",
@@ -910,25 +910,25 @@ export const portfolioDataEN: PortfolioData = {
 
   education: [
     {
-      period: "07/2026 – Present",
+      period: "07/2026 - Present",
       title: "Advanced Software Development",
       institution: "neuefische GmbH - School and Pool for Digital Talent",
       location: "Remote"
     },
     {
-      period: "10/2022 – 01/2023",
+      period: "10/2022 - 01/2023",
       title: "Web Development Bootcamp",
       institution: "neuefische GmbH - School and Pool for Digital Talent",
       location: "Remote"
     },
     {
-      period: "08/2010 – 02/2013",
+      period: "08/2010 - 02/2013",
       title: "Certified Banking Specialist (Bankkaufmann)",
       institution: "Sparkasse Stade-Altes Land",
       location: "Stade, Germany"
     },
     {
-      period: "07/2007 – 05/2010",
+      period: "07/2007 - 05/2010",
       title: "Vocational Baccalaureate in Economics (Fachabitur)",
       institution: "BBS 2 Stade",
       location: "Stade, Germany"

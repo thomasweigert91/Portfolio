@@ -48,16 +48,16 @@ export const Footer: React.FC = () => {
         {/* Telemetry & Time */}
         <div className="flex items-center gap-2 text-xs font-mono text-stone-300">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>HAMBURG / HENSTEDT-ULZBURG // {timeStr} {lang === 'de' ? 'MEZ' : 'CET'}</span>
+          <span>HAMBURG / HENSTEDT-ULZBURG · {timeStr} {lang === 'de' ? 'MEZ' : 'CET'}</span>
         </div>
 
         {/* Back to Top */}
         <button
           onClick={scrollToTop}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-stone-200 hover:text-white transition-all shadow-sm group cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-stone-200 hover:text-white transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 shadow-sm group cursor-pointer"
         >
           <span>{ui.footer.backToTop}</span>
-          <ArrowUp className="w-3.5 h-3.5 text-amber-400 group-hover:-translate-y-0.5 transition-transform" />
+          <ArrowUp className="w-3.5 h-3.5 text-amber-400 group-hover:-translate-y-0.5 transition-transform duration-200" />
         </button>
 
       </div>
