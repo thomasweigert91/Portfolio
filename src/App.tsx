@@ -28,7 +28,7 @@ const PortfolioApp: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#14110F] text-[#F3EFEA] selection:bg-amber-500/25 selection:text-amber-300">
+    <div className="min-h-screen bg-[#14110F] text-stone-100 selection:bg-amber-500/25 selection:text-amber-300">
       {/* Top Navbar */}
       <Navbar
         reducedMotion={reducedMotion}
@@ -68,13 +68,13 @@ const PortfolioApp: React.FC = () => {
                   </div>
 
                   <div className={`lg:col-span-6 space-y-6 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="text-xs font-mono text-amber-400 tracking-wider uppercase">
+                    <div className="text-xs font-mono text-amber-300/85 tracking-wider uppercase">
                       {scene.visualNote}
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-white leading-snug">
                       {scene.heading}
                     </h2>
-                    <p className="text-base text-stone-300 leading-relaxed sm:leading-7 font-light">
+                    <p className="text-base text-stone-100 leading-relaxed sm:leading-7 font-light">
                       {scene.description}
                     </p>
                     {scene.ctaText && (

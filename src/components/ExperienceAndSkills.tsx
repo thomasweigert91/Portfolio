@@ -12,10 +12,10 @@ export const ExperienceAndSkills: React.FC = () => {
         {/* Left Column: Werdegang & Arbeitszeugnis (7 cols) */}
         <div className="lg:col-span-7 space-y-12">
           <div>
-            <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+            <div className="text-xs font-mono tracking-widest text-amber-300/85 uppercase mb-3 font-medium">
               {ui.experience.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18]">
+            <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-white tracking-tight leading-[1.25] sm:leading-[1.18]">
               {ui.experience.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.experience.titleHighlight}</span>.
             </h2>
           </div>
@@ -46,7 +46,7 @@ export const ExperienceAndSkills: React.FC = () => {
                   <span className="text-white font-medium">{data.referenceLetter.author}</span>
                   <span className="text-stone-400">({data.referenceLetter.role})</span>
                 </div>
-                <span className="text-amber-400/90 sm:text-right">{data.referenceLetter.company}</span>
+                <span className="text-amber-300/85 sm:text-right">{data.referenceLetter.company}</span>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ export const ExperienceAndSkills: React.FC = () => {
         {/* Right Column: Fähigkeiten-Matrix & Sprachen (5 cols) */}
         <div className="lg:col-span-5 space-y-8">
           <div>
-            <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+            <div className="text-xs font-mono tracking-widest text-amber-300/85 uppercase mb-3 font-medium">
               {ui.experience.skillsBadge}
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-fraunces text-white mb-6">

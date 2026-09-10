@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
             <div className="font-fraunces font-bold text-white text-base tracking-tight">
               {data.profile.name}
             </div>
-            <div className="text-xs font-mono text-amber-400/90">
+            <div className="text-xs font-mono text-amber-300/85">
               Frontend Engineer • {data.profile.location}
             </div>
           </div>

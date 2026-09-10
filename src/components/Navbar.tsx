@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-fraunces font-bold text-base tracking-tight text-white group-hover:text-amber-300 transition-colors whitespace-nowrap">
               {data.profile.name}
             </span>
-            <span className="text-xs font-mono text-amber-400/90 tracking-wider uppercase whitespace-nowrap">
+            <span className="text-xs font-mono text-amber-300/85 tracking-wider uppercase whitespace-nowrap">
               Frontend Engineer
             </span>
           </div>

@@ -16,13 +16,13 @@ export const PassionsSection: React.FC = () => {
   return (
     <section id="passions" className="py-24 sm:py-32 px-6 sm:px-12 max-w-7xl mx-auto border-t border-amber-900/20">
       <div className="mb-16">
-        <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+        <div className="text-xs font-mono tracking-widest text-amber-300/85 uppercase mb-3 font-medium">
           {ui.passions.badge}
         </div>
-        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18]">
+        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-white tracking-tight leading-[1.25] sm:leading-[1.18]">
           {ui.passions.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.passions.titleHighlight}</span>.
         </h2>
-        <p className="text-stone-300 text-base max-w-2xl mt-4 font-light leading-relaxed sm:leading-7">
+        <p className="text-stone-100 text-base max-w-2xl mt-4 font-light leading-relaxed sm:leading-7">
           {ui.passions.description}
         </p>
       </div>

@@ -16,13 +16,13 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
       
       {/* Section Header (Restrained Eyebrow) */}
       <div className="max-w-3xl mb-16">
-        <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+        <div className="text-xs font-mono tracking-widest text-amber-300/85 uppercase mb-3 font-medium">
           {ui.projects.badge}
         </div>
-        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18]">
+        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-white tracking-tight leading-[1.25] sm:leading-[1.18]">
           {ui.projects.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.projects.titleHighlight}</span>.
         </h2>
-        <p className="text-stone-300 text-base mt-4 font-light leading-relaxed sm:leading-7">
+        <p className="text-stone-100 text-base mt-4 font-light leading-relaxed sm:leading-7">
           {ui.projects.description}
         </p>
       </div>
@@ -65,7 +65,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
 
                 {/* Text Info */}
                 <div className="p-6">
-                  <div className="text-xs font-mono text-amber-400/90 mb-2">
+                  <div className="text-xs font-mono text-amber-300/85 mb-2">
                     {project.client}
                   </div>
                   <h3 className="text-xl font-bold font-fraunces text-white group-hover:text-amber-300 transition-colors mb-3 leading-snug">

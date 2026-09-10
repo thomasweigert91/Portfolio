@@ -137,17 +137,17 @@ export const ContactSection: React.FC = () => {
         {/* Left Info Column (5 cols) */}
         <div className="lg:col-span-5 space-y-8">
           <div>
-            <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
+            <div className="text-xs font-mono tracking-widest text-amber-300/85 uppercase mb-3 font-medium">
               {ui.contact.badge}
             </div>
-            <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18] mb-4">
+            <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-white tracking-tight leading-[1.25] sm:leading-[1.18] mb-4">
               {ui.contact.titlePart1}
               <span className="italic text-amber-300 inline-block pb-0.5">
                 {ui.contact.titleHighlight}
               </span>
               .
             </h2>
-            <p className="text-stone-300 text-base leading-relaxed sm:leading-7 font-light">
+            <p className="text-stone-100 text-base leading-relaxed sm:leading-7 font-light">
               {ui.contact.description}
             </p>
           </div>
