@@ -423,9 +423,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
         {/* SEMANTISCHER HTML-CONTENT (Warm, Lesbar, Mobile-Optimiert) */}
         {/* ======================================================== */}
 
-        {/* SZENE 01: WURZELN & NATUR (Desktop: links / Mobile: unten mit Double-Bezel Glasrahmen) */}
+        {/* SZENE 01: WURZELN & NATUR (Desktop: links / Mobile: zentriert) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center sm:items-start px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene1Opacity,
             transform: `translateY(${-scene1TranslateY}px)`,
@@ -485,9 +485,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           </div>
         )}
 
-        {/* SZENE 02: PRÄZISION & KOCHKUNST (Desktop: rechts / Mobile: unten mit Double-Bezel Glasrahmen) */}
+        {/* SZENE 02: PRÄZISION & KOCHKUNST (Desktop: rechts / Mobile: zentriert) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center items-stretch sm:items-end px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center sm:items-end px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene2Opacity,
             transform: `translateY(${-scene2TranslateY}px)`,
@@ -547,9 +547,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           </div>
         )}
 
-        {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert mit Double-Bezel Architektur) */}
+        {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center items-center px-4 sm:px-6 max-w-4xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center px-4 sm:px-6 max-w-4xl mx-auto"
           style={{
             opacity: scene3Opacity,
             transform: `translateY(${scene3TranslateY}px)`,

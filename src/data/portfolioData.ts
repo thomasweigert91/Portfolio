@@ -106,6 +106,7 @@ export const uiTranslations: Record<Language, {
     passions: string;
     experience: string;
     contact: string;
+    downloadCv: string;
   };
   motion: {
     static: string;
@@ -199,7 +200,8 @@ export const uiTranslations: Record<Language, {
       projects: "Projekte",
       passions: "Werte & Leidenschaften",
       experience: "Werdegang & Skills",
-      contact: "Kontakt"
+      contact: "Kontakt",
+      downloadCv: "CV Download"
     },
     motion: {
       static: "Modus: Statisch",
@@ -293,7 +295,8 @@ export const uiTranslations: Record<Language, {
       projects: "Projects",
       passions: "Values & Passions",
       experience: "Career & Skills",
-      contact: "Contact"
+      contact: "Contact",
+      downloadCv: "Download CV"
     },
     motion: {
       static: "Mode: Static",
