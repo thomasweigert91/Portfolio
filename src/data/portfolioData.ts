@@ -132,7 +132,6 @@ export const uiTranslations: Record<Language, {
     titlePart1: string;
     titleHighlight: string;
     description: string;
-    footerNote: string;
   };
   experience: {
     badge: string;
@@ -170,6 +169,12 @@ export const uiTranslations: Record<Language, {
     submittedText: string;
     draftPreview: string;
     resetButton: string;
+    successTitle: string;
+    successText: string;
+    errorGeneric: string;
+    sendAnother: string;
+    openInEmailClient: string;
+    retryButton: string;
     errors: {
       name: string;
       email: string;
@@ -220,8 +225,7 @@ export const uiTranslations: Record<Language, {
       badge: "Persönlichkeit & Werte",
       titlePart1: "Was mich antreibt: ",
       titleHighlight: "neben dem Code",
-      description: "Großartige Software wird von Menschen für Menschen geschrieben. Meine Leidenschaften außerhalb des Terminals prägen meine Arbeitsweise als Entwickler maßgeblich:",
-      footerNote: "Teil meiner Entwickler-DNA"
+      description: "Großartige Software wird von Menschen für Menschen geschrieben. Meine Leidenschaften außerhalb des Terminals prägen meine Arbeitsweise als Entwickler maßgeblich:"
     },
     experience: {
       badge: "Berufserfahrung",
@@ -259,6 +263,12 @@ export const uiTranslations: Record<Language, {
       submittedText: "In der Live-Version leitet dieses Formular direkt an mein Postfach weiter. Sie können mir auch jederzeit direkt eine E-Mail schreiben:",
       draftPreview: "Vorbereiteter Entwurf:",
       resetButton: "Neuen Entwurf starten",
+      successTitle: "Nachricht erfolgreich versendet!",
+      successText: "Vielen Dank für Ihre Nachricht. Sie wurde direkt an mein Postfach weitergeleitet. Ich melde mich zeitnah bei Ihnen.",
+      errorGeneric: "Leider gab es ein Problem bei der Übertragung. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt per E-Mail.",
+      sendAnother: "Weitere Nachricht senden",
+      openInEmailClient: "Im E-Mail-Programm öffnen",
+      retryButton: "Erneut versuchen",
       errors: {
         name: "Bitte geben Sie Ihren Namen ein",
         email: "Bitte geben Sie eine gültige E-Mail-Adresse ein",
@@ -309,8 +319,7 @@ export const uiTranslations: Record<Language, {
       badge: "Personality & Values",
       titlePart1: "What drives me: ",
       titleHighlight: "beyond the code",
-      description: "Great software is written by people for people. My passions outside the terminal fundamentally shape how I work as an engineer:",
-      footerNote: "Part of my developer DNA"
+      description: "Great software is written by people for people. My passions outside the terminal fundamentally shape how I work as an engineer:"
     },
     experience: {
       badge: "Career & Journey",
@@ -348,6 +357,12 @@ export const uiTranslations: Record<Language, {
       submittedText: "In production, this forwards directly to my personal inbox. You can also reach out via email anytime:",
       draftPreview: "Prepared Draft Payload:",
       resetButton: "Start new draft",
+      successTitle: "Message sent successfully!",
+      successText: "Thank you for reaching out. Your message was delivered directly to my inbox. I will get back to you shortly.",
+      errorGeneric: "An error occurred while sending the message. Please try again or reach out directly via email.",
+      sendAnother: "Send another message",
+      openInEmailClient: "Open in email client",
+      retryButton: "Try again",
       errors: {
         name: "Please enter your name",
         email: "Please provide a valid email address",
@@ -432,43 +447,43 @@ export const portfolioDataDE: PortfolioData = {
     {
       id: "scene-1",
       sceneNumber: "01",
-      sceneName: "Wurzeln & Natur",
-      heading: "Ehrliches Handwerk, durchdachter Code und ein Gespür für das Wesentliche.",
-      subheading: "Thomas Weigert · Frontend Engineer aus Henstedt-Ulzburg bei Hamburg.",
-      description: "Gute Software entsteht wie ein harmonisches Stück Musik: mit Ruhe, Hingabe und einem festen Fundament. Willkommen auf meiner persönlichen Portfolio-Seite.",
-      ctaText: "Projekte & Werdegang erkunden",
+      sceneName: "Fokus & Fundament",
+      heading: "Moderne Frontend-Entwicklung mit Fokus auf Qualität, Performance und Verlässlichkeit.",
+      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) aus Henstedt-Ulzburg / Hamburg.",
+      description: "Ich entwickle nutzerzentrierte, performante Webanwendungen mit klaren Architekturen und sauberem Code. Geprägt durch fundierte Praxiserfahrung in anspruchsvollen Enterprise-Projekten und einen geschulten Blick für wirtschaftliche Zusammenhänge.",
+      ctaText: "Praxisprojekte ansehen",
       ctaHref: "#projects",
-      secondaryCtaText: "Kontakt aufnehmen",
-      secondaryCtaHref: "#contact",
-      visualNote: "Goldene Abendsonne auf der Holzveranda am Waldrand, Akustikgitarre und schlafender treuer Hund.",
+      secondaryCtaText: "Werdegang & Zeugnis",
+      secondaryCtaHref: "#experience",
+      visualNote: "Inspirierender Arbeitsplatz auf der Holzterrasse der Waldhütte mit sonnendurchflutetem Wald, Holztisch, Laptop und dampfendem Kaffee.",
       imagePlate: "/assets/scene1.jpg"
     },
     {
       id: "scene-2",
       sceneNumber: "02",
       sceneName: "Präzision & Handwerk",
-      heading: "Vom Finanzsektor zur modernen Frontend-Architektur.",
-      subheading: "Analytische Schärfe trifft auf moderne React- und TypeScript-Ökosysteme.",
-      description: "Ob saubere Caching-Strategien mit TanStack Query, modulare Komponenten in Nx-Monorepos oder barrierefreie UIs: Ich baue Software, die Nutzer begeistert und Unternehmen verlässlich voranbringt.",
+      heading: "Präzision im Detail, Weitsicht in der Architektur.",
+      subheading: "Analytische Disziplin trifft auf moderne Web-Technologien und durchdachte User Experience.",
+      description: "Gute Software entsteht an der Schnittstelle von technischer Exzellenz und echtem Produktverständnis. Aus meinem kaufmännischen Hintergrund bringe ich ein tiefes Gespür für Zahlen, Prozesse und Benutzerfreundlichkeit mit – und übersetze komplexe Anforderungen in intuitive, langlebige Oberflächen.",
       ctaText: "Echte Praxisprojekte ansehen",
       ctaHref: "#projects",
-      secondaryCtaText: "Mein Werdegang",
+      secondaryCtaText: "Tech-Stack & Skills",
       secondaryCtaHref: "#experience",
-      visualNote: "Rustikaler Holztisch mit moderner Code-Entwicklung neben frischen Kräutern, Schneidebrett und Kaffeetasse.",
+      visualNote: "Thomas in der rustikalen Holzküche beim Kochen und Kräuterschneiden, Laptop mit Code auf der Anrichte.",
       imagePlate: "/assets/scene2.jpg"
     },
     {
       id: "scene-3",
       sceneNumber: "03",
       sceneName: "Verlässlichkeit & Ankommen",
-      heading: "Lass uns gemeinsam etwas Wertiges bauen.",
-      subheading: "Verfügbar für zukunftsfähige Frontend-Rollen und engagierte Teams.",
-      description: "Suchen Sie einen Frontend-Entwickler, der eigenverantwortlich denkt, sauberen Code schreibt und echte Teamarbeit schätzt? Ich freue mich auf den Austausch mit Ihnen.",
+      heading: "Bereit für anspruchsvolle Teams und geschäftskritische Produkte.",
+      subheading: "Verfügbar für zukunftsfähige Frontend-Rollen (Remote / Hybrid in Hamburg & Umgebung).",
+      description: "Suchen Sie einen Frontend-Entwickler, der eigenverantwortlich denkt, sauberen und wartbaren Code schreibt und echte Teamarbeit schätzt? Ich freue mich auf den Austausch mit Ihnen.",
       ctaText: "Nachricht schreiben",
       ctaHref: "#contact",
       secondaryCtaText: "thomasweigert91@gmail.com",
       secondaryCtaHref: "mailto:thomasweigert91@gmail.com",
-      visualNote: "Gemütliche Abendstimmung am knisternden Kaminfeuer mit schlafendem Hund und warmem Leselicht.",
+      visualNote: "Gemütliche Abendstimmung am knisternden Kaminfeuer mit den beiden friedlich schlafenden Hunden.",
       imagePlate: "/assets/scene3.jpg"
     }
   ],
@@ -554,7 +569,7 @@ export const portfolioDataDE: PortfolioData = {
     location: "Schulterblatt 36, 20357 Hamburg",
     quote: "Die ihm übertragenen Aufgaben erfüllte Thomas Weigert stets äußerst zuverlässig, sorgfältig und termingerecht mit konstant gutem bis sehr gutem Ergebnis. Auch unter hoher Arbeitsbelastung und Zeitdruck behielt er stets den Überblick und verstand es, Prioritäten sinnvoll und richtig zu setzen. Er identifizierte sich in hohem Maße mit seinen Aufgaben und erledigte diese stets mit hohem Verantwortungsbewusstsein, Effizienz und persönlichem Engagement.",
     rating: "Sehr gut",
-    badge: "Auszug aus dem Arbeitszeugnis (Note: Sehr gut)"
+    badge: "Arbeitszeugnis"
   },
 
   experience: [
@@ -730,43 +745,43 @@ export const portfolioDataEN: PortfolioData = {
     {
       id: "scene-1",
       sceneNumber: "01",
-      sceneName: "Roots & Nature",
-      heading: "Honest craftsmanship, thoughtful code, and an eye for the essential.",
-      subheading: "Thomas Weigert · Frontend Engineer based near Hamburg, Germany.",
-      description: "Great software is composed like an honest piece of music: with patience, dedication, and a solid foundation. Welcome to my personal portfolio.",
-      ctaText: "Explore Projects & Journey",
+      sceneName: "Focus & Foundation",
+      heading: "Modern frontend engineering focused on quality, performance, and reliability.",
+      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) based near Hamburg, Germany.",
+      description: "I build user-centric, high-performance web applications with clean architecture and maintainable code. Backed by solid enterprise project experience and an analytical eye for business-critical workflows.",
+      ctaText: "View Featured Projects",
       ctaHref: "#projects",
-      secondaryCtaText: "Get in touch",
-      secondaryCtaHref: "#contact",
-      visualNote: "Golden hour on a timber porch bordering the forest, acoustic guitar and loyal sleeping dog.",
+      secondaryCtaText: "Experience & Reference",
+      secondaryCtaHref: "#experience",
+      visualNote: "Inspiring workspace on the cabin deck overlooking the sunlit forest, with laptop and steaming coffee.",
       imagePlate: "/assets/scene1.jpg"
     },
     {
       id: "scene-2",
       sceneNumber: "02",
       sceneName: "Precision & Craft",
-      heading: "From the financial sector to modern frontend architecture.",
-      subheading: "Analytical precision meets modern React and TypeScript ecosystems.",
-      description: "Whether orchestrating client-side caching with TanStack Query, designing modular components in Nx monorepos, or crafting accessible UIs: I engineer software that users trust and businesses rely upon.",
-      ctaText: "View Featured Projects",
+      heading: "Precision in the details, vision in the architecture.",
+      subheading: "Analytical discipline meets modern web technologies and thoughtful user experience.",
+      description: "Great software is built at the intersection of engineering excellence and real product understanding. My business background gives me a sharp instinct for data, workflows, and usability — translating complex requirements into intuitive, lasting interfaces.",
+      ctaText: "Explore Architectures",
       ctaHref: "#projects",
-      secondaryCtaText: "My Career Path",
+      secondaryCtaText: "Tech Stack & Skills",
       secondaryCtaHref: "#experience",
-      visualNote: "Rustic wooden workspace with modern code development alongside fresh culinary herbs, cutting board, and coffee.",
+      visualNote: "Thomas in a rustic timber kitchen preparing food and fresh herbs, laptop with code on the counter.",
       imagePlate: "/assets/scene2.jpg"
     },
     {
       id: "scene-3",
       sceneNumber: "03",
-      sceneName: "Reliability & Arrival",
-      heading: "Let’s build something lasting and meaningful together.",
-      subheading: "Available for ambitious frontend roles and forward-thinking engineering teams.",
-      description: "Looking for a frontend engineer who takes ownership, values clean maintainable code, and thrives in transparent, collaborative teams? I would love to connect.",
+      sceneName: "Reliability & Team Fit",
+      heading: "Ready to bring dependable engineering to your product.",
+      subheading: "Available for ambitious frontend roles (Remote / Hybrid Hamburg area).",
+      description: "Looking for a frontend engineer who takes ownership, values clean maintainable code, and thrives in transparent, collaborative teams? Let’s connect.",
       ctaText: "Send a message",
       ctaHref: "#contact",
       secondaryCtaText: "thomasweigert91@gmail.com",
       secondaryCtaHref: "mailto:thomasweigert91@gmail.com",
-      visualNote: "Cozy evening atmosphere by the crackling fireplace with sleeping dog and warm ambient reading light.",
+      visualNote: "Warm hearth fire with both dogs sleeping peacefully on a sheepskin rug.",
       imagePlate: "/assets/scene3.jpg"
     }
   ],
@@ -852,7 +867,7 @@ export const portfolioDataEN: PortfolioData = {
     location: "Schulterblatt 36, 20357 Hamburg, Germany",
     quote: "Thomas Weigert performed the tasks assigned to him at all times with utmost reliability, diligence, and punctuality, delivering consistently good to very good results. Even under heavy workloads and time constraints, he always maintained an overview and prioritized effectively and purposefully. He identified strongly with his responsibilities and executed them with high accountability, efficiency, and personal dedication.",
     rating: "Top Evaluation",
-    badge: "Official Employment Reference Excerpt (Grade: Very Good)"
+    badge: "Reference Letter"
   },
 
   experience: [

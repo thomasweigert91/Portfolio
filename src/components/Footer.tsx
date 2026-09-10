@@ -62,7 +62,7 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-stone-400 gap-4">
+      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-stone-400 gap-4">
         <div>
           © {new Date().getFullYear()} {ui.footer.copyright}
         </div>

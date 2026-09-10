@@ -19,10 +19,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
         <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
           {ui.projects.badge}
         </div>
-        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.18]">
+        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18]">
           {ui.projects.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.projects.titleHighlight}</span>.
         </h2>
-        <p className="text-stone-300 text-base mt-4 font-light leading-relaxed">
+        <p className="text-stone-300 text-base mt-4 font-light leading-relaxed sm:leading-7">
           {ui.projects.description}
         </p>
       </div>
@@ -49,10 +49,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                   
                   {/* Badges */}
                   <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-md bg-[#14110F]/85 backdrop-blur-md border border-amber-500/30 text-[11px] font-mono text-amber-300">
+                    <span className="px-3 py-1 rounded-md bg-[#14110F]/85 backdrop-blur-md border border-amber-500/30 text-xs font-mono text-amber-300">
                       {project.category}
                     </span>
-                    <span className="px-2 py-1 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-mono text-stone-300">
+                    <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-xs font-mono text-stone-300">
                       {project.period}
                     </span>
                   </div>
@@ -71,7 +71,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                   <h3 className="text-xl font-bold font-fraunces text-white group-hover:text-amber-300 transition-colors mb-3 leading-snug">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-stone-300 leading-relaxed line-clamp-3 mb-6 font-light">
+                  <p className="text-sm text-stone-300 leading-relaxed sm:leading-7 line-clamp-3 mb-6 font-light">
                     {project.shortDesc}
                   </p>
 
@@ -79,7 +79,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                   <div className="grid grid-cols-2 gap-3 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5 mb-4">
                     {project.metrics.slice(0, 2).map((m, i) => (
                       <div key={i}>
-                        <div className="text-[11px] text-stone-400 font-mono">{m.label}</div>
+                        <div className="text-xs text-stone-400 font-mono">{m.label}</div>
                         <div className="text-sm font-semibold font-fraunces text-amber-300 mt-0.5">{m.value}</div>
                       </div>
                     ))}
@@ -89,14 +89,14 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
 
               {/* Tags & Action Footer */}
               <div className="px-6 pb-6 pt-2 border-t border-white/5 flex items-center justify-between">
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {project.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="text-[10px] font-mono text-stone-300 bg-white/5 px-2 py-0.5 rounded">
+                    <span key={tag} className="text-xs font-mono text-stone-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
                       {tag}
                     </span>
                   ))}
                   {project.tags.length > 3 && (
-                    <span className="text-[10px] font-mono text-stone-500 py-0.5">
+                    <span className="text-xs font-mono text-stone-400 py-1 px-1">
                       +{project.tags.length - 3}
                     </span>
                   )}

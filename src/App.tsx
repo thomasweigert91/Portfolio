@@ -71,10 +71,10 @@ const PortfolioApp: React.FC = () => {
                     <div className="text-xs font-mono text-amber-400 tracking-wider uppercase">
                       {scene.visualNote}
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-white">
+                    <h2 className="text-3xl sm:text-4xl font-bold font-fraunces text-white leading-snug">
                       {scene.heading}
                     </h2>
-                    <p className="text-base text-stone-300 leading-relaxed font-light">
+                    <p className="text-base text-stone-300 leading-relaxed sm:leading-7 font-light">
                       {scene.description}
                     </p>
                     {scene.ctaText && (

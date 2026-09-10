@@ -82,42 +82,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
               <div className="absolute bottom-5 left-5 sm:left-8 right-5">
                 <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="px-2.5 py-1 rounded-md bg-amber-950/90 border border-amber-500/40 text-amber-300 text-[11px] font-mono uppercase tracking-wider backdrop-blur-md">
+                  <span className="px-3 py-1 rounded-md bg-amber-950/90 border border-amber-500/40 text-amber-300 text-xs font-mono uppercase tracking-wider backdrop-blur-md">
                     {project.category}
                   </span>
-                  <span className="px-2.5 py-1 rounded-md bg-black/70 text-stone-300 text-[11px] font-mono backdrop-blur-md">
+                  <span className="px-3 py-1 rounded-md bg-black/70 text-stone-300 text-xs font-mono backdrop-blur-md">
                     {project.period}
                   </span>
-                  <span className="px-2.5 py-1 rounded-md bg-black/70 text-stone-300 text-[11px] font-mono backdrop-blur-md">
+                  <span className="px-3 py-1 rounded-md bg-black/70 text-stone-300 text-xs font-mono backdrop-blur-md">
                     {project.client}
                   </span>
                 </div>
-                <h3 className="text-xl sm:text-3xl font-bold font-fraunces text-white drop-shadow-md leading-tight">
+                <h3 className="text-xl sm:text-3xl font-bold font-fraunces text-white drop-shadow-md leading-snug">
                   {project.title}
                 </h3>
               </div>
             </div>
 
             {/* Modal Content */}
-            <div className="p-6 sm:p-8 space-y-7">
+            <div className="p-5 sm:p-8 space-y-7">
               
-              {/* Key Metrics Strip */}
-              <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+              {/* Key Metrics Strip (Responsive, no text collision on mobile, perfectly centered on desktop) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 p-3.5 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 sm:text-center">
                 {project.metrics.map((m, idx) => (
-                  <div key={idx}>
-                    <div className="text-lg sm:text-2xl font-bold font-fraunces text-amber-300">{m.value}</div>
-                    <div className="text-[10px] sm:text-[11px] font-mono text-stone-400 uppercase tracking-wider mt-0.5">{m.label}</div>
+                  <div 
+                    key={idx} 
+                    className="flex sm:flex-col items-center justify-between sm:justify-center p-3 sm:p-3 bg-white/[0.02] sm:bg-transparent rounded-xl sm:rounded-none border border-white/5 sm:border-0 text-left sm:text-center"
+                  >
+                    <span className="text-xs font-mono text-stone-300 uppercase tracking-wider order-1 sm:order-2 sm:mt-2 text-left sm:text-center sm:w-full">
+                      {m.label}
+                    </span>
+                    <span className="text-base sm:text-xl md:text-2xl font-bold font-fraunces text-amber-300 order-2 sm:order-1 text-right sm:text-center sm:w-full leading-tight">
+                      {m.value}
+                    </span>
                   </div>
                 ))}
               </div>
 
               {/* Project Narrative */}
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-amber-300 mb-2 flex items-center gap-2">
+                <h4 className="text-xs font-mono uppercase tracking-widest text-amber-300 mb-2.5 flex items-center gap-2">
                   <Layers className="w-3.5 h-3.5 text-amber-400" />
                   <span>{ui.projects.modalOverview}</span>
                 </h4>
-                <p className="text-stone-300 text-sm sm:text-base leading-relaxed font-light">
+                <p className="text-stone-300 text-sm sm:text-base leading-relaxed sm:leading-7 font-light">
                   {project.fullDesc}
                 </p>
               </div>
@@ -130,9 +137,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 </h4>
                 <div className="space-y-2.5">
                   {project.highlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                      <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-sm text-stone-200">{highlight}</span>
+                    <div key={idx} className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                      <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
+                      <span className="text-xs sm:text-sm text-stone-200 leading-relaxed sm:leading-6">{highlight}</span>
                     </div>
                   ))}
                 </div>
@@ -140,14 +147,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
               {/* Tech Stack Chips */}
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-stone-400 mb-2">
+                <h4 className="text-xs font-mono uppercase tracking-widest text-stone-400 mb-2.5">
                   {ui.projects.modalTech}
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span 
                       key={tag} 
-                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-stone-300"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs sm:text-sm font-mono text-stone-200"
                     >
                       {tag}
                     </span>

@@ -147,8 +147,18 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
       ctx.fillStyle = '#14110F';
       ctx.fillRect(0, 0, width, height);
 
-      // 1. Draw Visual Plates with seamless blending & subtle camera breathing
-      const drawPlate = (img: HTMLImageElement | undefined, alpha: number, scale: number, panX: number, panY: number) => {
+      // 1. Draw Visual Plates with seamless blending, subtle camera breathing & mobile-adaptive focal alignment
+      const drawPlate = (
+        img: HTMLImageElement | undefined,
+        alpha: number,
+        scale: number,
+        panX: number,
+        panY: number,
+        mobileFocalX: number = 0.5,
+        mobileFocalY: number = 0.5,
+        desktopFocalX: number = 0.5,
+        desktopFocalY: number = 0.5
+      ) => {
         if (!img || alpha <= 0.001) return;
         ctx.save();
         ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
@@ -166,8 +176,28 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           renderW = (height * imgRatio) * scale;
         }
 
-        const offsetX = (width - renderW) / 2 + panX;
-        const offsetY = (height - renderH) / 2 + panY;
+        const isMobile = width < 768;
+        const focalX = isMobile ? mobileFocalX : desktopFocalX;
+        const focalY = isMobile ? mobileFocalY : desktopFocalY;
+
+        // When image width exceeds screen width (portrait/mobile), center on target focalX
+        let offsetX: number;
+        if (renderW > width) {
+          offsetX = width * 0.5 - renderW * focalX + panX;
+          // Clamp so image always covers the entire viewport seamlessly
+          offsetX = Math.min(0, Math.max(width - renderW, offsetX));
+        } else {
+          offsetX = (width - renderW) / 2 + panX;
+        }
+
+        // When image height exceeds screen height, center on target focalY
+        let offsetY: number;
+        if (renderH > height) {
+          offsetY = height * 0.5 - renderH * focalY + panY;
+          offsetY = Math.min(0, Math.max(height - renderH, offsetY));
+        } else {
+          offsetY = (height - renderH) / 2 + panY;
+        }
 
         ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
         ctx.restore();
@@ -206,15 +236,28 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
 
-      drawPlate(img1, a1, s1, mx * 0.5, my * 0.5);
-      drawPlate(img2, a2, s2, mx * 0.6, my * 0.6);
-      drawPlate(img3, a3, s3, mx * 0.4, my * 0.4);
+      // Draw plates with precision focal targeting:
+      // Scene 1: Cabin deck with laptop, coffee mug, and forest sunlight
+      drawPlate(img1, a1, s1, mx * 0.5, my * 0.5, 0.50, 0.58, 0.50, 0.50);
+      // Scene 2: Thomas cooking on left + skillet
+      drawPlate(img2, a2, s2, mx * 0.6, my * 0.6, 0.32, 0.30, 0.50, 0.50);
+      // Scene 3: Dogs resting by fireplace
+      drawPlate(img3, a3, s3, mx * 0.4, my * 0.4, 0.50, 0.40, 0.50, 0.50);
 
-      // 2. Warm Sunlit / Hearth Vignette Overlay
-      const grad = ctx.createRadialGradient(width / 2, height / 2, width * 0.25, width / 2, height / 2, width * 0.85);
+      // 2. Warm Sunlit / Hearth Vignette Overlay (calibrated for mobile clarity)
+      const isMobile = width < 768;
+      const maxDim = Math.max(width, height);
+      const grad = ctx.createRadialGradient(
+        width / 2,
+        isMobile ? height * 0.35 : height / 2,
+        isMobile ? width * 0.3 : width * 0.25,
+        width / 2,
+        isMobile ? height * 0.35 : height / 2,
+        isMobile ? maxDim * 0.75 : width * 0.85
+      );
       grad.addColorStop(0, 'rgba(20, 17, 15, 0)');
-      grad.addColorStop(0.65, 'rgba(20, 17, 15, 0.45)');
-      grad.addColorStop(1, 'rgba(15, 12, 10, 0.90)');
+      grad.addColorStop(0.65, isMobile ? 'rgba(20, 17, 15, 0.25)' : 'rgba(20, 17, 15, 0.45)');
+      grad.addColorStop(1, isMobile ? 'rgba(15, 12, 10, 0.75)' : 'rgba(15, 12, 10, 0.90)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, width, height);
 
@@ -260,8 +303,10 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.fillStyle = 'rgba(243, 239, 234, 0.22)';
       const telemetryTag = lang === 'de' ? 'NATUR & HANDWERK' : 'NATURE & CRAFT';
-      ctx.fillText(`${telemetryTag} · ${(p * 100).toFixed(0)}%`, 36, height - 24);
-      ctx.fillText(`HENSTEDT-ULZBURG · HAMBURG`, width - 210, height - 24);
+      ctx.fillText(`${telemetryTag} · ${(p * 100).toFixed(0)}%`, 24, height - 16);
+      if (width >= 640) {
+        ctx.fillText(`HENSTEDT-ULZBURG · HAMBURG`, width - 210, height - 16);
+      }
       ctx.restore();
 
       ctx.restore();
@@ -322,6 +367,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           className="absolute inset-0 w-full h-full block select-none pointer-events-none"
         />
 
+        {/* Cinematic Backdrop Scrim (Subtle on mobile so subjects shine through; deeper on desktop) */}
+        <div className="absolute inset-0 bg-[#14110F]/20 sm:bg-[#14110F]/35 pointer-events-none z-10" />
+
         {/* Loading Poster */}
         {!imagesLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#14110F] z-30">
@@ -353,7 +401,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
                 className="group flex items-center gap-3 text-left focus:outline-none cursor-pointer"
                 title={`${s.sceneNumber}: ${s.sceneName}`}
               >
-                <span className={`text-[11px] font-mono tracking-widest transition-colors duration-300 ${
+                <span className={`text-xs font-mono tracking-widest transition-colors duration-300 ${
                   isActive ? 'text-amber-400 font-semibold' : 'text-stone-400 group-hover:text-stone-300'
                 }`}>
                   {s.sceneNumber}
@@ -372,12 +420,12 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
         </div>
 
         {/* ======================================================== */}
-        {/* SEMANTISCHER HTML-CONTENT (Warm, Lesbar, Getrennt) */}
+        {/* SEMANTISCHER HTML-CONTENT (Warm, Lesbar, Mobile-Optimiert) */}
         {/* ======================================================== */}
 
-        {/* SZENE 01: WURZELN & NATUR (Links platziert) */}
+        {/* SZENE 01: WURZELN & NATUR (Desktop: links / Mobile: unten mit Double-Bezel Glasrahmen) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene1Opacity,
             transform: `translateY(${-scene1TranslateY}px)`,
@@ -385,57 +433,61 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
             transition: 'opacity 0.2s ease-out'
           }}
         >
-          <div className="max-w-2xl pointer-events-auto">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-6 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              <span>{scenes[0].sceneNumber} · {scenes[0].sceneName}</span>
-            </div>
+          {/* Double-Bezel Outer Shell */}
+          <div className="max-w-2xl w-full p-2 rounded-[2.25rem] bg-amber-500/[0.07] ring-1 ring-amber-500/20 shadow-2xl pointer-events-auto">
+            {/* Inner Core */}
+            <div className="rounded-[calc(2.25rem-0.5rem)] p-6 sm:p-10 bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-4 sm:mb-6 backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span>{scenes[0].sceneNumber} · {data.profile.name} · Frontend Engineer</span>
+              </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-6xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.18] mb-6 drop-shadow-md">
-              {scenes[0].heading}
-            </h1>
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-fraunces leading-[1.2] sm:leading-[1.18] mb-4 sm:mb-6 drop-shadow-md break-words">
+                {scenes[0].heading}
+              </h1>
 
-            <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed mb-9 max-w-xl">
-              {scenes[0].description}
-            </p>
+              <p className="text-sm sm:text-base lg:text-lg text-stone-200 font-normal leading-relaxed sm:leading-8 mb-6 sm:mb-8 max-w-xl">
+                {scenes[0].description}
+              </p>
 
-            <div className="flex flex-wrap items-center gap-4">
-              {scenes[0].ctaText && (
-                <a
-                  href={scenes[0].ctaHref || '#projects'}
-                  className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
-                >
-                  <span>{scenes[0].ctaText}</span>
-                  <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
-                    <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
-                  </span>
-                </a>
-              )}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                {scenes[0].ctaText && (
+                  <a
+                    href={scenes[0].ctaHref || '#projects'}
+                    className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
+                  >
+                    <span>{scenes[0].ctaText}</span>
+                    <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
+                      <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
+                    </span>
+                  </a>
+                )}
 
-              {scenes[0].secondaryCtaText && (
-                <a
-                  href={scenes[0].secondaryCtaHref || '#contact'}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium text-sm tracking-wide border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
-                >
-                  <span>{scenes[0].secondaryCtaText}</span>
-                </a>
-              )}
+                {scenes[0].secondaryCtaText && (
+                  <a
+                    href={scenes[0].secondaryCtaHref || '#contact'}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium text-sm tracking-wide border border-white/15 hover:border-white/25 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
+                  >
+                    <span>{scenes[0].secondaryCtaText}</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         {/* TRANSITION 1 BEAT */}
         {activeBeat === 'trans1' && (
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300">
-            <p className="text-xs font-mono tracking-widest text-amber-300/80 uppercase">
+          <div className="absolute top-20 sm:bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300">
+            <p className="text-[11px] sm:text-xs font-mono tracking-widest text-amber-300/80 uppercase">
               {ui.hero.trans1}
             </p>
           </div>
         )}
 
-        {/* SZENE 02: PRÄZISION & KOCHKUNST (Rechts platziert) */}
+        {/* SZENE 02: PRÄZISION & KOCHKUNST (Desktop: rechts / Mobile: unten mit Double-Bezel Glasrahmen) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-end px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center items-stretch sm:items-end px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene2Opacity,
             transform: `translateY(${-scene2TranslateY}px)`,
@@ -443,49 +495,53 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
             transition: 'opacity 0.2s ease-out'
           }}
         >
-          <div className="max-w-xl pointer-events-auto text-right">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-6 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              <span>{scenes[1].sceneNumber} · {scenes[1].sceneName}</span>
-            </div>
+          {/* Double-Bezel Outer Shell */}
+          <div className="max-w-2xl w-full p-2 rounded-[2.25rem] bg-amber-500/[0.07] ring-1 ring-amber-500/20 shadow-2xl pointer-events-auto">
+            {/* Inner Core */}
+            <div className="rounded-[calc(2.25rem-0.5rem)] p-6 sm:p-10 text-left sm:text-right bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-4 sm:mb-6 backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span>{scenes[1].sceneNumber} · {scenes[1].sceneName}</span>
+              </div>
 
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#FDFBF7] font-fraunces leading-[1.18] mb-5 drop-shadow-md">
-              {scenes[1].heading}
-            </h2>
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-fraunces leading-[1.2] sm:leading-[1.18] mb-4 sm:mb-6 drop-shadow-md break-words">
+                {scenes[1].heading}
+              </h2>
 
-            <p className="text-base text-stone-300 font-light leading-relaxed mb-9">
-              {scenes[1].description}
-            </p>
+              <p className="text-sm sm:text-base lg:text-lg text-stone-200 font-normal leading-relaxed sm:leading-8 mb-6 sm:mb-8 max-w-xl sm:ml-auto">
+                {scenes[1].description}
+              </p>
 
-            <div className="flex flex-wrap items-center justify-end gap-4">
-              {scenes[1].ctaText && (
-                <a
-                  href={scenes[1].ctaHref || '#projects'}
-                  className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
-                >
-                  <span>{scenes[1].ctaText}</span>
-                  <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
-                    <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
-                  </span>
-                </a>
-              )}
+              <div className="flex flex-wrap items-center justify-start sm:justify-end gap-3 sm:gap-4">
+                {scenes[1].ctaText && (
+                  <a
+                    href={scenes[1].ctaHref || '#projects'}
+                    className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
+                  >
+                    <span>{scenes[1].ctaText}</span>
+                    <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
+                      <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
+                    </span>
+                  </a>
+                )}
 
-              {scenes[1].secondaryCtaText && (
-                <a
-                  href={scenes[1].secondaryCtaHref || '#experience'}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium text-sm tracking-wide border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
-                >
-                  <span>{scenes[1].secondaryCtaText}</span>
-                </a>
-              )}
+                {scenes[1].secondaryCtaText && (
+                  <a
+                    href={scenes[1].secondaryCtaHref || '#experience'}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium text-sm tracking-wide border border-white/15 hover:border-white/25 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
+                  >
+                    <span>{scenes[1].secondaryCtaText}</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         {/* TRANSITION 2 BEAT */}
         {activeBeat === 'trans2' && (
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300">
-            <p className="text-xs font-mono tracking-widest text-amber-300/80 uppercase">
+          <div className="absolute top-20 sm:bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300">
+            <p className="text-[11px] sm:text-xs font-mono tracking-widest text-amber-300/80 uppercase">
               {ui.hero.trans2}
             </p>
           </div>
@@ -493,7 +549,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
 
         {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert mit Double-Bezel Architektur) */}
         <div 
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center px-6 max-w-3xl mx-auto"
+          className="absolute inset-0 pointer-events-none flex flex-col justify-end pb-8 sm:pb-0 sm:justify-center items-center px-4 sm:px-6 max-w-4xl mx-auto"
           style={{
             opacity: scene3Opacity,
             transform: `translateY(${scene3TranslateY}px)`,
@@ -504,21 +560,21 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
           {/* Double-Bezel Outer Shell */}
           <div className="w-full p-2 rounded-[2.25rem] bg-amber-500/[0.07] ring-1 ring-amber-500/20 shadow-2xl pointer-events-auto">
             {/* Inner Core */}
-            <div className="rounded-[calc(2.25rem-0.5rem)] p-8 sm:p-11 text-center bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-amber-950/60 border border-amber-400/30 text-amber-300 text-xs font-mono tracking-wider mb-5">
+            <div className="rounded-[calc(2.25rem-0.5rem)] p-6 sm:p-11 text-center bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-950/60 border border-amber-400/30 text-amber-300 text-xs font-mono tracking-wider mb-4 sm:mb-5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                 <span>{scenes[2].sceneNumber} · {scenes[2].sceneName}</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FDFBF7] font-fraunces mb-4 leading-[1.2]">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-fraunces mb-4 sm:mb-6 leading-[1.2] sm:leading-[1.18] break-words">
                 {scenes[2].heading}
               </h2>
 
-              <p className="text-base text-stone-300 font-light leading-relaxed max-w-xl mx-auto mb-8">
+              <p className="text-sm sm:text-base lg:text-lg text-stone-200 font-normal leading-relaxed sm:leading-8 max-w-xl mx-auto mb-6 sm:mb-8">
                 {scenes[2].description}
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 {scenes[2].ctaText && (
                   <a
                     href={scenes[2].ctaHref || '#contact'}
@@ -533,18 +589,18 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
 
                 <a
                   href={`mailto:${data.profile.email}`}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-stone-200 font-mono text-xs border border-white/10 hover:border-white/20 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-stone-200 font-mono text-xs border border-white/15 hover:border-white/25 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
                 >
                   <span>{data.profile.email}</span>
                 </a>
               </div>
 
               {/* Stats aus Lebenslauf */}
-              <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+              <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
                 {data.profile.stats.map((stat, i) => (
-                  <div key={i}>
-                    <div className="text-xl sm:text-2xl font-bold font-fraunces text-amber-300 tracking-tight">{stat.value}</div>
-                    <div className="text-[11px] font-mono text-stone-400 uppercase tracking-wider mt-0.5">{stat.label}</div>
+                  <div key={i} className="p-1 sm:p-0">
+                    <div className="text-lg sm:text-2xl font-bold font-fraunces text-amber-300 tracking-tight">{stat.value}</div>
+                    <div className="text-xs font-mono text-stone-300 uppercase tracking-wider mt-1">{stat.label}</div>
                   </div>
                 ))}
               </div>

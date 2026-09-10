@@ -19,10 +19,10 @@ export const PassionsSection: React.FC = () => {
         <div className="text-xs font-mono tracking-widest text-amber-400/90 uppercase mb-3 font-medium">
           {ui.passions.badge}
         </div>
-        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.18]">
+        <h2 className="text-3xl sm:text-5xl font-bold font-fraunces text-[#FDFBF7] tracking-tight leading-[1.25] sm:leading-[1.18]">
           {ui.passions.titlePart1}<span className="italic text-amber-300 inline-block pb-0.5">{ui.passions.titleHighlight}</span>.
         </h2>
-        <p className="text-stone-300 text-base max-w-2xl mt-4 font-light leading-relaxed">
+        <p className="text-stone-300 text-base max-w-2xl mt-4 font-light leading-relaxed sm:leading-7">
           {ui.passions.description}
         </p>
       </div>
@@ -44,24 +44,20 @@ export const PassionsSection: React.FC = () => {
                     <div className="w-12 h-12 rounded-2xl bg-[#221C18] border border-amber-500/20 flex items-center justify-center text-amber-400 shadow-inner">
                       <IconComp className="w-6 h-6" />
                     </div>
-                    <span className="text-[11px] font-mono text-amber-300/80 px-2.5 py-1 rounded-full bg-amber-950/40 border border-amber-500/20">
+                    <span className="text-xs font-mono text-amber-300/90 px-3 py-1 rounded-full bg-amber-950/40 border border-amber-500/20">
                       {card.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold font-fraunces text-white mb-1">
+                  <h3 className="text-xl font-bold font-fraunces text-white mb-1.5 leading-snug">
                     {card.title}
                   </h3>
-                  <div className="text-xs font-mono text-stone-400 mb-4">
+                  <div className="text-xs font-mono text-stone-400 mb-4 leading-normal">
                     {card.subtitle}
                   </div>
-                  <p className="text-sm text-stone-300 leading-relaxed font-light">
+                  <p className="text-sm text-stone-300 leading-relaxed sm:leading-7 font-light">
                     {card.description}
                   </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-white/5 text-[11px] font-mono text-stone-400/80 tracking-wide">
-                  {ui.passions.footerNote}
                 </div>
               </div>
             </div>

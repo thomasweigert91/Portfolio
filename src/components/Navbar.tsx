@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-fraunces font-bold text-base tracking-tight text-white group-hover:text-amber-300 transition-colors">
               {data.profile.name}
             </span>
-            <span className="text-[10px] font-mono text-amber-400/90 tracking-widest uppercase">
+            <span className="text-xs font-mono text-amber-400/90 tracking-wider uppercase">
               Frontend Engineer
             </span>
           </div>
@@ -83,7 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               DE
             </button>
-            <span className="text-stone-600 text-[10px] px-0.5 select-none">|</span>
+            <span className="text-stone-600 text-xs px-0.5 select-none">|</span>
             <button
               onClick={() => setLang('en')}
               className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
@@ -116,19 +116,19 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Controls (Quick DE|EN + Hamburger) */}
         <div className="flex items-center gap-2.5 md:hidden">
           {/* Mobile quick language toggle */}
-          <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] font-mono">
+          <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono">
             <button
               onClick={() => setLang('de')}
-              className={`px-2 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'de' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
               DE
             </button>
-            <span className="text-stone-600 text-[9px] px-0.5">|</span>
+            <span className="text-stone-600 text-xs px-0.5 select-none">|</span>
             <button
               onClick={() => setLang('en')}
-              className={`px-2 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'en' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
