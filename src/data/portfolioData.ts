@@ -67,6 +67,8 @@ export interface PortfolioData {
     name: string;
     title: string;
     subtitle: string;
+    /** Concrete value proposition shown on the first screen. */
+    valueProp: string;
     headline: string;
     subheadline: string;
     bio: string;
@@ -428,6 +430,7 @@ export const portfolioDataDE: PortfolioData = {
     name: "Thomas Weigert",
     title: "Frontend Engineer",
     subtitle: "TypeScript • React • Next.js • TanStack Query • NestJS • KI-Integration",
+    valueProp: "Ich baue schnelle, wartbare Web-Apps mit React, Next.js und TypeScript, von datenlastigen Admin-Plattformen bis zur KI-Integration.",
     headline: "Ehrliches Handwerk, durchdachter Code und ein Gespür für das Wesentliche.",
     subheadline: "Frontend Engineer aus Henstedt-Ulzburg (bei Hamburg). Ich verbinde über 3 Jahre Praxiserfahrung in moderner Monorepo-Webentwicklung mit 8 Jahren analytischer Präzision aus dem Finanzsektor.",
     bio: "Ich entwickle und skaliere moderne Webanwendungen mit Fokus auf saubere Architektur, intuitive Bedienbarkeit und spürbare Performance. Wenn ich nicht am Rechner sitze, verbringe ich Zeit in der Natur mit meinen Hunden, höre handgemachte Country-Musik oder stehe mit Leidenschaft in der Küche. Acht Jahre in der Finanzbranche (Bank, Baufinanzierung) und drei Jahre Frontend für die betriebliche Altersvorsorge: Für Projekte in Fintech, Banken und Versicherungen bringe ich das fachliche Verständnis gleich mit.",
@@ -490,10 +493,10 @@ export const portfolioDataDE: PortfolioData = {
       heading: "Moderne Frontend-Entwicklung mit Fokus auf Qualität, Performance und Verlässlichkeit.",
       subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) aus Hamburg (Henstedt-Ulzburg).",
       description: "Ich entwickle nutzerzentrierte, performante Webanwendungen mit klaren Architekturen und sauberem Code. Geprägt durch fundierte Praxiserfahrung in anspruchsvollen Enterprise-Projekten und einen geschulten Blick für wirtschaftliche Zusammenhänge.",
-      ctaText: "Praxisprojekte ansehen",
+      ctaText: "Projekte ansehen",
       ctaHref: "#projects",
-      secondaryCtaText: "Werdegang & Zeugnis",
-      secondaryCtaHref: "#experience",
+      secondaryCtaText: "CV herunterladen",
+      secondaryCtaHref: "/CV_Thomas_Weigert.pdf",
       visualNote: "Inspirierender Arbeitsplatz auf der Holzterrasse der Waldhütte mit sonnendurchflutetem Wald, Holztisch, Laptop und dampfendem Kaffee.",
       imagePlate: "/assets/scene1.jpg"
     },
@@ -753,6 +756,7 @@ export const portfolioDataEN: PortfolioData = {
     name: "Thomas Weigert",
     title: "Frontend Engineer",
     subtitle: "TypeScript • React • Next.js • TanStack Query • NestJS • AI Integration",
+    valueProp: "I build fast, maintainable web apps with React, Next.js and TypeScript, from data-heavy admin platforms to AI integration.",
     headline: "Honest craftsmanship, thoughtful code, and an eye for the essential.",
     subheadline: "Frontend Engineer based in Henstedt-Ulzburg (near Hamburg, Germany). Combining over 3 years of hands-on experience in modern monorepo web development with 8 years of analytical precision from the financial sector.",
     bio: "I build and scale modern web applications focused on clean architecture, intuitive usability, and tangible performance. Away from the terminal, I spend time in nature with my dogs, listen to acoustic country music, or cook with passion. Eight years in financial services (banking, mortgage lending) and three years of frontend work for company pension platforms: for fintech, banking and insurance projects, I bring the domain knowledge with me.",
@@ -815,10 +819,10 @@ export const portfolioDataEN: PortfolioData = {
       heading: "Modern frontend engineering focused on quality, performance, and reliability.",
       subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) based in Hamburg (Henstedt-Ulzburg), Germany.",
       description: "I build user-centric, high-performance web applications with clean architecture and maintainable code. Backed by solid enterprise project experience and an analytical eye for business-critical workflows.",
-      ctaText: "View Featured Projects",
+      ctaText: "View projects",
       ctaHref: "#projects",
-      secondaryCtaText: "Experience & Reference",
-      secondaryCtaHref: "#experience",
+      secondaryCtaText: "Download CV",
+      secondaryCtaHref: "/CV_Thomas_Weigert.pdf",
       visualNote: "Inspiring workspace on the cabin deck overlooking the sunlit forest, with laptop and steaming coffee.",
       imagePlate: "/assets/scene1.jpg"
     },

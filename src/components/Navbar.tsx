@@ -28,8 +28,8 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
   const navLinks = [
     { label: ui.nav.story, href: '#story' },
     { label: ui.nav.projects, href: '#projects' },
-    { label: ui.nav.passions, href: '#passions' },
     { label: ui.nav.experience, href: '#experience' },
+    { label: ui.nav.passions, href: '#passions' },
     { label: ui.nav.contact, href: '#contact' },
   ];
 
@@ -39,14 +39,14 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
         ? 'bg-[#14110F]/95 backdrop-blur-xl py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.55)]' 
         : 'bg-gradient-to-b from-[#14110F]/90 via-[#14110F]/40 to-transparent py-5'
     }`}>
-      <div className="max-w-[92rem] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between gap-6">
+      <div className="max-w-[92rem] mx-auto px-4 sm:px-10 lg:px-12 flex items-center justify-between gap-3 sm:gap-6">
         
         {/* Brand / Logo Lockup */}
-        <a href="#story" className="group flex items-center gap-3.5 focus:outline-none shrink-0">
+        <a href="#story" aria-label={name} className="group flex items-center gap-2.5 sm:gap-3.5 focus:outline-none min-w-0">
           <div className="relative w-10 h-10 flex items-center justify-center rounded-2xl bg-[#1E1916] border border-amber-500/30 p-1.5 group-hover:border-amber-400 transition-all duration-300 shadow-[0_0_15px_rgba(229,152,58,0.15)] shrink-0">
             <Image src="/logo.svg" alt="" width={28} height={28} className="w-full h-full object-contain" />
           </div>
-          <div className="flex flex-col whitespace-nowrap">
+          <div className="hidden min-[420px]:flex flex-col whitespace-nowrap">
             <span className="font-fraunces font-bold text-base tracking-tight text-white group-hover:text-amber-300 transition-colors whitespace-nowrap">
               {name}
             </span>
@@ -134,7 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
         </div>
 
         {/* Mobile Controls (Quick DE|EN + Quick CV + Hamburger) */}
-        <div className="flex items-center gap-2.5 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden shrink-0">
           {/* Mobile quick language toggle */}
           <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono">
             <a

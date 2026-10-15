@@ -3,29 +3,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { ArrowRight, Sparkles } from "lucide-react";
-import type { VisualStoryScene } from "@/data/portfolioData";
+import type { PortfolioData, VisualStoryScene } from "@/data/portfolioData";
 import type { Language, UiDictionary } from "@/i18n/dictionaries";
+import { HeroIntro } from "./HeroIntro";
 
 // The canvas only paints the atmosphere; it is loaded on the client after the HTML is visible.
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
 interface CinematicHeroProps {
   lang: Language;
-  name: string;
-  email: string;
-  stats: { label: string; value: string }[];
+  profile: PortfolioData["profile"];
   scenes: VisualStoryScene[];
   ui: Pick<UiDictionary, "hero">;
 }
 
 export const CinematicHero: React.FC<CinematicHeroProps> = ({
   lang,
-  name,
-  email,
-  stats,
+  profile,
   scenes,
   ui,
 }) => {
+  const { email, stats } = profile;
   const containerRef = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -171,7 +169,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
 
         {/* SZENE 01: WURZELN & NATUR (Desktop: links / Mobile: zentriert) */}
         <div
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center sm:items-start px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center items-center sm:items-start px-3 pt-16 sm:pt-0 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene1Opacity,
             transform: `translateY(${-scene1TranslateY}px)`,
@@ -182,45 +180,8 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
           {/* Double-Bezel Outer Shell */}
           <div className="max-w-2xl w-full p-2 rounded-[2.25rem] bg-amber-500/[0.07] ring-1 ring-amber-500/20 shadow-2xl pointer-events-auto">
             {/* Inner Core */}
-            <div className="rounded-[calc(2.25rem-0.5rem)] p-6 sm:p-10 bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-4 sm:mb-6 backdrop-blur-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                <span>
-                  {scenes[0].sceneNumber} · {name} · Frontend
-                  Engineer
-                </span>
-              </div>
-
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-fraunces leading-[1.2] sm:leading-[1.18] mb-4 sm:mb-6 break-words">
-                {scenes[0].heading}
-              </h1>
-
-              <p className="text-sm sm:text-base lg:text-lg text-stone-100 font-normal leading-relaxed sm:leading-8 mb-6 sm:mb-8 max-w-xl">
-                {scenes[0].description}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                {scenes[0].ctaText && (
-                  <a
-                    href={scenes[0].ctaHref || "#projects"}
-                    className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-[#14110F] font-semibold text-sm tracking-wide transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_4px_20px_rgba(229,152,58,0.25)] hover:shadow-[0_6px_28px_rgba(229,152,58,0.35)] active:scale-[0.98]"
-                  >
-                    <span>{scenes[0].ctaText}</span>
-                    <span className="w-8 h-8 rounded-full bg-[#14110F]/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-200">
-                      <ArrowRight className="w-3.5 h-3.5 text-[#14110F]" />
-                    </span>
-                  </a>
-                )}
-
-                {scenes[0].secondaryCtaText && (
-                  <a
-                    href={scenes[0].secondaryCtaHref || "#contact"}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium text-sm tracking-wide border border-white/15 hover:border-white/25 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
-                  >
-                    <span>{scenes[0].secondaryCtaText}</span>
-                  </a>
-                )}
-              </div>
+            <div className="rounded-[calc(2.25rem-0.5rem)] p-5 sm:p-10 bg-[#171310]/95 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+              <HeroIntro profile={profile} scene={scenes[0]} />
             </div>
           </div>
         </div>
@@ -236,7 +197,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
 
         {/* SZENE 02: PRÄZISION & KOCHKUNST (Desktop: rechts / Mobile: zentriert) */}
         <div
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center sm:items-end px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
+          className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center items-center sm:items-end px-4 sm:px-12 lg:px-20 max-w-7xl mx-auto"
           style={{
             opacity: scene2Opacity,
             transform: `translateY(${-scene2TranslateY}px)`,
@@ -300,7 +261,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
 
         {/* SZENE 03: RESOLUTION & KAMINFEUER (Zentriert) */}
         <div
-          className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center px-4 sm:px-6 max-w-4xl mx-auto"
+          className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center items-center px-4 sm:px-6 max-w-4xl mx-auto"
           style={{
             opacity: scene3Opacity,
             transform: `translateY(${scene3TranslateY}px)`,

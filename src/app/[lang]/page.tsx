@@ -45,15 +45,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <main>
           <HeroStage
             lang={lang}
-            name={data.profile.name}
-            email={data.profile.email}
-            stats={data.profile.stats}
+            profile={data.profile}
             scenes={data.visualStory}
             ui={ui}
           />
           <ProjectsSection projects={data.projects} ui={ui} />
-          <PassionsSection passions={data.passions} ui={ui} />
           <ExperienceAndSkills data={data} ui={ui} />
+          <PassionsSection passions={data.passions} ui={ui} />
           <ContactSection lang={lang} profile={data.profile} ui={ui} />
         </main>
 
