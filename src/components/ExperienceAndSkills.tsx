@@ -1,9 +1,14 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { Briefcase, GraduationCap, Quote, CheckCircle2, Terminal, Globe } from 'lucide-react';
+import { GraduationCap, Quote, CheckCircle2, Globe } from 'lucide-react';
+import type { PortfolioData } from '@/data/portfolioData';
+import type { UiDictionary } from '@/i18n/dictionaries';
 
-export const ExperienceAndSkills: React.FC = () => {
-  const { data, ui, lang } = useLanguage();
+interface ExperienceAndSkillsProps {
+  data: Pick<PortfolioData, 'referenceLetter' | 'experience' | 'education' | 'skillCategories' | 'languages'>;
+  ui: Pick<UiDictionary, 'experience'>;
+}
+
+export const ExperienceAndSkills: React.FC<ExperienceAndSkillsProps> = ({ data, ui }) => {
 
   return (
     <section id="experience" className="py-24 sm:py-32 px-6 sm:px-12 max-w-7xl mx-auto border-t border-white/5">
@@ -25,14 +30,10 @@ export const ExperienceAndSkills: React.FC = () => {
             <div className="p-5 sm:p-8 rounded-[calc(2rem-0.375rem)] bg-[#191512] relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
               <Quote className="w-12 h-12 text-amber-500/15 absolute -bottom-2 -right-2 pointer-events-none" />
               
-              {/* Badges: Zwei getrennte, saubere Chips ohne Zeilenumbruch im Pill */}
+              {/* Badge */}
               <div className="flex flex-wrap items-center gap-2 mb-5">
                 <span className="px-3 py-1 rounded-full bg-amber-950/70 border border-amber-500/30 text-amber-300 text-xs font-mono uppercase tracking-wider">
                   {data.referenceLetter.badge}
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-mono uppercase tracking-wider font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>{lang === 'de' ? `Note: ${data.referenceLetter.rating}` : `Grade: ${data.referenceLetter.rating}`}</span>
                 </span>
               </div>
 

@@ -12,8 +12,15 @@ export interface ProjectItem {
   fullDesc: string;
   metrics: { label: string; value: string }[];
   tags: string[];
+  /** Only real, publicly reachable URLs. */
   liveUrl?: string;
   githubUrl?: string;
+  /** Contact link for projects that cannot be shown publicly. */
+  inquiryUrl?: string;
+  /** Client project under NDA: no public demo or code. */
+  nda?: boolean;
+  /** Optional heading for the highlight list (e.g. "My contribution"). */
+  highlightsTitle?: string;
   highlights: string[];
 }
 
@@ -60,13 +67,14 @@ export interface PortfolioData {
     name: string;
     title: string;
     subtitle: string;
+    /** Concrete value proposition shown on the first screen. */
+    valueProp: string;
     headline: string;
     subheadline: string;
     bio: string;
     status: string;
     location: string;
     email: string;
-    phone: string;
     linkedin: string;
     github: string;
     stats: { label: string; value: string }[];
@@ -80,7 +88,6 @@ export interface PortfolioData {
     company: string;
     location: string;
     quote: string;
-    rating: string;
     badge: string;
   };
   experience: ExperienceItem[];
@@ -100,6 +107,10 @@ export interface PortfolioData {
 }
 
 export const uiTranslations: Record<Language, {
+  meta: {
+    title: string;
+    description: string;
+  };
   nav: {
     story: string;
     projects: string;
@@ -126,7 +137,10 @@ export const uiTranslations: Record<Language, {
     modalTech: string;
     modalRole: string;
     modalClose: string;
-    modalInquiry: string;
+    inquiryButton: string;
+    liveButton: string;
+    codeButton: string;
+    ndaNotice: string;
   };
   passions: {
     badge: string;
@@ -150,7 +164,6 @@ export const uiTranslations: Record<Language, {
     titleHighlight: string;
     description: string;
     emailLabel: string;
-    phoneLabel: string;
     profilesLabel: string;
     formTitle: string;
     formSubtitle: string;
@@ -159,7 +172,8 @@ export const uiTranslations: Record<Language, {
     emailFormLabel: string;
     emailPlaceholder: string;
     subjectLabel: string;
-    defaultSubject: string;
+    subjectPlaceholder: string;
+    subjectOptions: { value: string; label: string }[];
     messageLabel: string;
     messagePlaceholder: string;
     charsLabel: string;
@@ -179,6 +193,7 @@ export const uiTranslations: Record<Language, {
     errors: {
       name: string;
       email: string;
+      subject: string;
       message: string;
     };
   };
@@ -195,6 +210,10 @@ export const uiTranslations: Record<Language, {
   };
 }> = {
   de: {
+    meta: {
+      title: "Thomas Weigert · Frontend Engineer | React, Next.js & TypeScript",
+      description: "Thomas Weigert, Frontend Engineer in Hamburg: schnelle, wartbare Web-Apps mit React, Next.js und TypeScript, von datenlastigen Admin-Plattformen bis zur KI-Integration. Offen für Festanstellung & Freelance-Projekte."
+    },
     nav: {
       story: "Story",
       projects: "Projekte",
@@ -214,14 +233,17 @@ export const uiTranslations: Record<Language, {
       badge: "Ausgewählte Praxisprojekte",
       titlePart1: "Architektur, die ",
       titleHighlight: "Zuverlässigkeit beweist",
-      description: "Echte, produktive Kundenanwendungen aus meiner Praxis bei melting elements: von geschäftskritischen bAV-Verwaltungssystemen bis hin zu Greenfield-Apps mit Next.js für Energiekonzerne.",
+      description: "Ein aktuelles Teamprojekt mit offenem Code und produktive Kundenanwendungen aus meiner Praxis bei melting elements: von geschäftskritischen bAV-Verwaltungssystemen bis hin zu Greenfield-Apps mit Next.js für Energiekonzerne.",
       detailsButton: "Details ansehen",
       modalOverview: "Projektübersicht & Kontext",
       modalMilestones: "Technische Meilensteine & Kernleistungen",
       modalTech: "Eingesetzte Technologien & Werkzeuge",
       modalRole: "Rolle:",
       modalClose: "Schließen",
-      modalInquiry: "Projektbezogene Anfrage"
+      inquiryButton: "Projekt anfragen",
+      liveButton: "Live ansehen",
+      codeButton: "Code auf GitHub",
+      ndaNotice: "Kundenprojekt unter NDA, Details im Gespräch"
     },
     passions: {
       badge: "Persönlichkeit & Werte",
@@ -243,18 +265,22 @@ export const uiTranslations: Record<Language, {
       badge: "Kontakt",
       titlePart1: "Lass uns ins ",
       titleHighlight: "Gespräch kommen",
-      description: "Ob neue Festanstellung als Frontend Engineer, spannende Herausforderungen in React & TypeScript oder Kennenlernen bei einem Kaffee: Ich freue mich auf Ihre Nachricht.",
+      description: "Ob Festanstellung als Frontend Engineer, ein Freelance-Projekt mit React & TypeScript oder ein Kennenlernen bei einem Kaffee: Ich freue mich auf Ihre Nachricht.",
       emailLabel: "E-Mail-Adresse:",
-      phoneLabel: "Telefon / Mobil:",
       profilesLabel: "Profile & Netzwerke",
       formTitle: "Kontaktformular",
-      formSubtitle: "Direkte Anfrage für Vakanzen, Projekte oder Austausch.",
+      formSubtitle: "Direkte Anfrage für Festanstellung, Freelance-Projekte oder Austausch.",
       nameLabel: "Ihr Name *",
       namePlaceholder: "z. B. Julia Schneider",
       emailFormLabel: "Ihre E-Mail-Adresse *",
       emailPlaceholder: "julia@unternehmen.de",
-      subjectLabel: "Thema / Anliegen",
-      defaultSubject: "Frontend Engineer Position / Projektanfrage",
+      subjectLabel: "Anlass *",
+      subjectPlaceholder: "Bitte wählen",
+      subjectOptions: [
+        { value: "fulltime", label: "Festanstellung" },
+        { value: "freelance", label: "Freelance-Projekt" },
+        { value: "exchange", label: "Austausch" }
+      ],
       messageLabel: "Ihre Nachricht *",
       messagePlaceholder: "Beschreiben Sie kurz Ihr Projekt, die Position oder Ihr Anliegen...",
       charsLabel: "Zeichen",
@@ -274,13 +300,14 @@ export const uiTranslations: Record<Language, {
       errors: {
         name: "Bitte geben Sie Ihren Namen ein",
         email: "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+        subject: "Bitte wählen Sie einen Anlass",
         message: "Bitte schreiben Sie mindestens 10 Zeichen"
       }
     },
     footer: {
       backToTop: "Nach oben",
       copyright: "Thomas Weigert. Entwickelt mit Leidenschaft für Code, Natur & gutes Handwerk.",
-      location: "Henstedt-Ulzburg / Hamburg"
+      location: "Hamburg (Henstedt-Ulzburg)"
     },
     hero: {
       loading: "LADE BÜHNE & HANDWERKSWELT...",
@@ -290,6 +317,10 @@ export const uiTranslations: Record<Language, {
     }
   },
   en: {
+    meta: {
+      title: "Thomas Weigert · Frontend Engineer | React, Next.js & TypeScript",
+      description: "Thomas Weigert, frontend engineer in Hamburg: fast, maintainable web apps with React, Next.js and TypeScript, from data-heavy admin platforms to AI integration. Open to full-time roles & freelance projects."
+    },
     nav: {
       story: "Story",
       projects: "Projects",
@@ -309,14 +340,17 @@ export const uiTranslations: Record<Language, {
       badge: "Selected Real-World Projects",
       titlePart1: "Architecture that proves ",
       titleHighlight: "reliability in production",
-      description: "Proven, production customer applications from my experience at melting elements: from mission-critical pension administration systems to greenfield Next.js apps for energy corporations.",
+      description: "A current team project with open source code, plus production customer applications from my work at melting elements: from mission-critical pension administration systems to greenfield Next.js apps for energy corporations.",
       detailsButton: "View details",
       modalOverview: "Project Overview & Context",
       modalMilestones: "Technical Milestones & Core Achievements",
       modalTech: "Technologies & Tools Used",
       modalRole: "Role:",
       modalClose: "Close",
-      modalInquiry: "Inquire about this project"
+      inquiryButton: "Ask about this project",
+      liveButton: "View live",
+      codeButton: "Code on GitHub",
+      ndaNotice: "Client project under NDA, details on request"
     },
     passions: {
       badge: "Personality & Values",
@@ -338,18 +372,22 @@ export const uiTranslations: Record<Language, {
       badge: "Contact",
       titlePart1: "Let’s start a ",
       titleHighlight: "conversation",
-      description: "Whether you have an open Frontend Engineer position, ambitious React & TypeScript challenges, or just want to connect over coffee: I look forward to hearing from you.",
+      description: "Whether it is a full-time frontend role, a freelance project with React & TypeScript, or just a coffee chat: I look forward to hearing from you.",
       emailLabel: "Email Address:",
-      phoneLabel: "Phone / Mobile:",
       profilesLabel: "Profiles & Networks",
       formTitle: "Direct Contact Form",
-      formSubtitle: "Inquiries regarding job roles, engineering projects, or collaboration.",
+      formSubtitle: "Inquiries about full-time roles, freelance projects, or just connecting.",
       nameLabel: "Your Name *",
       namePlaceholder: "e.g. Sarah Jenkins",
       emailFormLabel: "Your Email Address *",
       emailPlaceholder: "sarah@company.com",
-      subjectLabel: "Subject / Topic",
-      defaultSubject: "Frontend Engineer Role / Project Inquiry",
+      subjectLabel: "Topic *",
+      subjectPlaceholder: "Please choose",
+      subjectOptions: [
+        { value: "fulltime", label: "Full-time role" },
+        { value: "freelance", label: "Freelance project" },
+        { value: "exchange", label: "Just connect" }
+      ],
       messageLabel: "Your Message *",
       messagePlaceholder: "Briefly share your project goals, role description, or inquiry...",
       charsLabel: "characters",
@@ -369,13 +407,14 @@ export const uiTranslations: Record<Language, {
       errors: {
         name: "Please enter your name",
         email: "Please provide a valid email address",
+        subject: "Please choose a topic",
         message: "Please write at least 10 characters"
       }
     },
     footer: {
       backToTop: "Back to top",
       copyright: "Thomas Weigert. Built with passion for code, nature, and genuine craftsmanship.",
-      location: "Henstedt-Ulzburg / Hamburg, Germany"
+      location: "Hamburg (Henstedt-Ulzburg), Germany"
     },
     hero: {
       loading: "INITIALIZING CINEMATIC STAGE...",
@@ -390,21 +429,21 @@ export const portfolioDataDE: PortfolioData = {
   profile: {
     name: "Thomas Weigert",
     title: "Frontend Engineer",
-    subtitle: "TypeScript • React.js • Next.js • TanStack Query • Nx Monorepo",
+    subtitle: "TypeScript • React • Next.js • TanStack Query • NestJS • KI-Integration",
+    valueProp: "Ich baue schnelle, wartbare Web-Apps mit React, Next.js und TypeScript, von datenlastigen Admin-Plattformen bis zur KI-Integration.",
     headline: "Ehrliches Handwerk, durchdachter Code und ein Gespür für das Wesentliche.",
     subheadline: "Frontend Engineer aus Henstedt-Ulzburg (bei Hamburg). Ich verbinde über 3 Jahre Praxiserfahrung in moderner Monorepo-Webentwicklung mit 8 Jahren analytischer Präzision aus dem Finanzsektor.",
-    bio: "Ich entwickle und skaliere moderne Webanwendungen mit Fokus auf saubere Architektur, intuitive Bedienbarkeit und spürbare Performance. Wenn ich nicht am Rechner sitze, verbringe ich Zeit in der Natur mit meinen Hunden, höre handgemachte Country-Musik oder stehe mit Leidenschaft in der Küche.",
-    status: "Offen für neue berufliche Herausforderungen",
-    location: "Henstedt-Ulzburg, SH / Hamburg (vor Ort & Remote)",
+    bio: "Ich entwickle und skaliere moderne Webanwendungen mit Fokus auf saubere Architektur, intuitive Bedienbarkeit und spürbare Performance. Wenn ich nicht am Rechner sitze, verbringe ich Zeit in der Natur mit meinen Hunden, höre handgemachte Country-Musik oder stehe mit Leidenschaft in der Küche. Acht Jahre in der Finanzbranche (Bank, Baufinanzierung) und drei Jahre Frontend für die betriebliche Altersvorsorge: Für Projekte in Fintech, Banken und Versicherungen bringe ich das fachliche Verständnis gleich mit.",
+    status: "Offen für Festanstellung & Freelance-Projekte",
+    location: "Hamburg (Henstedt-Ulzburg) · vor Ort & Remote",
     email: "thomasweigert91@gmail.com",
-    phone: "+49 176 63646990",
     linkedin: "https://linkedin.com/in/thomas-weigert-frontend/",
     github: "https://github.com/thomasweigert91",
     stats: [
       { label: "Jahre Frontend-Praxis", value: "3+" },
       { label: "Finanz- & Beratungserfahrung", value: "8 Jahre" },
-      { label: "Tabellen-Beschleunigung", value: "-3 Sek." },
-      { label: "Zufriedenheit Zeugnis", value: "Sehr gut" }
+      { label: "schneller: Tabellen & Suche", value: "~3 s" },
+      { label: "Produktivanwendungen", value: "5" }
     ]
   },
 
@@ -452,12 +491,12 @@ export const portfolioDataDE: PortfolioData = {
       sceneNumber: "01",
       sceneName: "Fokus & Fundament",
       heading: "Moderne Frontend-Entwicklung mit Fokus auf Qualität, Performance und Verlässlichkeit.",
-      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) aus Henstedt-Ulzburg / Hamburg.",
+      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) aus Hamburg (Henstedt-Ulzburg).",
       description: "Ich entwickle nutzerzentrierte, performante Webanwendungen mit klaren Architekturen und sauberem Code. Geprägt durch fundierte Praxiserfahrung in anspruchsvollen Enterprise-Projekten und einen geschulten Blick für wirtschaftliche Zusammenhänge.",
-      ctaText: "Praxisprojekte ansehen",
+      ctaText: "Projekte ansehen",
       ctaHref: "#projects",
-      secondaryCtaText: "Werdegang & Zeugnis",
-      secondaryCtaHref: "#experience",
+      secondaryCtaText: "CV herunterladen",
+      secondaryCtaHref: "/CV_Thomas_Weigert.pdf",
       visualNote: "Inspirierender Arbeitsplatz auf der Holzterrasse der Waldhütte mit sonnendurchflutetem Wald, Holztisch, Laptop und dampfendem Kaffee.",
       imagePlate: "/assets/scene1.jpg"
     },
@@ -467,7 +506,7 @@ export const portfolioDataDE: PortfolioData = {
       sceneName: "Präzision & Handwerk",
       heading: "Präzision im Detail, Weitsicht in der Architektur.",
       subheading: "Analytische Disziplin trifft auf moderne Web-Technologien und durchdachte User Experience.",
-      description: "Gute Software entsteht an der Schnittstelle von technischer Exzellenz und echtem Produktverständnis. Aus meinem kaufmännischen Hintergrund bringe ich ein tiefes Gespür für Zahlen, Prozesse und Benutzerfreundlichkeit mit – und übersetze komplexe Anforderungen in intuitive, langlebige Oberflächen.",
+      description: "Gute Software entsteht an der Schnittstelle von technischer Exzellenz und echtem Produktverständnis. Aus meinem kaufmännischen Hintergrund bringe ich ein tiefes Gespür für Zahlen, Prozesse und Benutzerfreundlichkeit mit – und übersetze komplexe Anforderungen in intuitive, langlebige Oberflächen. Acht Jahre in der Finanzbranche (Bank, Baufinanzierung) und drei Jahre Frontend für die betriebliche Altersvorsorge: Für Projekte in Fintech, Banken und Versicherungen bringe ich das fachliche Verständnis gleich mit.",
       ctaText: "Echte Praxisprojekte ansehen",
       ctaHref: "#projects",
       secondaryCtaText: "Tech-Stack & Skills",
@@ -479,10 +518,10 @@ export const portfolioDataDE: PortfolioData = {
       id: "scene-3",
       sceneNumber: "03",
       sceneName: "Verlässlichkeit & Ankommen",
-      heading: "Bereit für anspruchsvolle Teams und geschäftskritische Produkte.",
-      subheading: "Verfügbar für zukunftsfähige Frontend-Rollen (Remote / Hybrid in Hamburg & Umgebung).",
-      description: "Suchen Sie einen Frontend-Entwickler, der eigenverantwortlich denkt, sauberen und wartbaren Code schreibt und echte Teamarbeit schätzt? Ich freue mich auf den Austausch mit Ihnen.",
-      ctaText: "Nachricht schreiben",
+      heading: "Bereit für anspruchsvolle Teams, Rollen und Projekte.",
+      subheading: "Offen für Festanstellung als Frontend Engineer und für Freelance-Projekte (Remote / Hybrid in Hamburg & Umgebung).",
+      description: "Sie suchen einen Frontend Engineer für Ihr Team oder Unterstützung bei einem konkreten Projekt? Ich denke eigenverantwortlich, schreibe sauberen, wartbaren Code und schätze echte Teamarbeit. Ich freue mich auf den Austausch mit Ihnen.",
+      ctaText: "Rolle oder Projekt besprechen",
       ctaHref: "#contact",
       secondaryCtaText: "thomasweigert91@gmail.com",
       secondaryCtaHref: "mailto:thomasweigert91@gmail.com",
@@ -493,26 +532,53 @@ export const portfolioDataDE: PortfolioData = {
 
   projects: [
     {
+      id: "gitspore",
+      title: "GitSpore",
+      category: "Teamprojekt / Weiterbildung (Capstone)",
+      period: "10/2026",
+      role: "Entwickler im 3er-Team",
+      client: "Capstone-Projekt · Team aus 3 Personen",
+      image: "/assets/proj-gitspore.jpg",
+      shortDesc: "Interaktives 3D-Gewächshaus zur Visualisierung und Steuerung von KI-Coding-Agenten und Git-Worktrees. Next.js + React Three Fiber, NestJS-Daemon, npm-Workspaces-Monorepo.",
+      fullDesc: "GitSpore macht KI-Coding-Agenten und ihre Git-Worktrees als interaktives 3D-Gewächshaus sichtbar und steuerbar. Das Frontend basiert auf Next.js und React Three Fiber, ein NestJS-Daemon liefert den Zustand in Echtzeit; beides lebt in einem npm-Workspaces-Monorepo. Entstanden als Capstone-Projekt meiner Weiterbildung im Team aus drei Personen.",
+      metrics: [
+        { label: "Team", value: "3 Personen" },
+        { label: "Projektart", value: "Capstone" },
+        { label: "Tests", value: "Jest" }
+      ],
+      tags: ["Next.js", "React Three Fiber", "NestJS", "TypeScript", "WebSocket", "Zustand", "Jest", "npm Workspaces"],
+      githubUrl: "https://github.com/gitspore/gitspore",
+      highlightsTitle: "Mein Beitrag",
+      highlights: [
+        "Monorepo- und CI-Setup (npm Workspaces)",
+        "Gemeinsamer Typ-Vertrag zwischen Daemon und Frontend",
+        "Sicherheitsschicht des Daemons: Session-Token-Auth, Origin- und Host-Prüfung im WebSocket-Handshake, State-Gateway mit Snapshot beim Verbinden",
+        "Echtzeit-Datenschicht im Frontend: typisiertes Client-Interface, Socket-Client, Mock-Client mit Szenario-Player und Fake-Clock für die Entwicklung ohne Daemon, Zustand-Store mit Selektoren und Verbindungsstatus",
+        "Alle Bausteine mit Jest-Tests abgesichert"
+      ]
+    },
+    {
       id: "bav-admin-tool",
       title: "Admin-Tool für betriebliche Altersvorsorge",
       category: "Verwaltungsplattform & Bestandsanwendung",
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenanwendung zur betrieblichen Altersvorsorge",
-      image: "/assets/proj1.jpg",
-      shortDesc: "Geschäftskritische Verwaltungssoftware: Gezieltes Refactoring der historisch gewachsenen Codebase und 3 Sekunden schnellere Datentabellen durch intelligentes TanStack Query Prefetching.",
-      fullDesc: "Eigenständige Betreuung und Weiterentwicklung der Frontend-Architektur für eine geschäftskritische bAV-Verwaltungssoftware auf reiner React- und TypeScript-Basis innerhalb des zentralen Nx-Monorepos. Gezieltes Refactoring und schrittweise Modernisierung gewachsener Legacy-Strukturen unter Beibehaltung höchster Ausfall- und Betriebsstabilität. Durch Einführung von intelligentem Prefetching und clientseitigem Caching mit TanStack Query konnten Datentabellen und Suchfunktionen um 3 Sekunden beschleunigt werden. Begleitung von Produktiv-Deployments und Hotfixes im Live-Betrieb.",
+      image: "/assets/proj-admin-de.jpg",
+      shortDesc: "Geschäftskritische Verwaltungssoftware: Gezieltes Refactoring der historisch gewachsenen Codebase und ~3 s schnellere Datentabellen durch intelligentes TanStack Query Prefetching.",
+      fullDesc: "Eigenständige Betreuung und Weiterentwicklung der Frontend-Architektur für eine geschäftskritische bAV-Verwaltungssoftware auf reiner React- und TypeScript-Basis innerhalb des zentralen Nx-Monorepos. Gezieltes Refactoring und schrittweise Modernisierung gewachsener Legacy-Strukturen unter Beibehaltung höchster Ausfall- und Betriebsstabilität. Durch Einführung von intelligentem Prefetching und clientseitigem Caching mit TanStack Query wurden Datentabellen und Suchfunktionen ~3 s schneller. Begleitung von Produktiv-Deployments und Hotfixes im Live-Betrieb.",
       metrics: [
-        { label: "Such-/Tabellengewinn", value: "+3 Sek." },
-        { label: "Betriebsstabilität", value: "100% Live" },
+        { label: "Tabellen & Suche", value: "~3 s schneller" },
+        { label: "Deployment & Hotfixes", value: "Live-Betrieb" },
         { label: "Architektur", value: "React & Nx" }
       ],
       tags: ["React.js", "TypeScript", "TanStack Query", "Nx Monorepo", "REST APIs", "CSS", "Scrum"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20bAV%20Admin-Tool",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20bAV%20Admin-Tool",
       highlights: [
         "Eigenständige Betreuung und Weiterentwicklung der Frontend-Architektur auf reiner React-Basis",
         "Legacy-Modernisierung und gezieltes Refactoring gewachsener Codebases bei durchgehend hoher Betriebsstabilität",
-        "Performance-Optimierung: Beschleunigung von Datentabellen und Suchfunktionen um 3 Sekunden durch intelligentes Prefetching und Caching mit TanStack Query",
+        "Performance-Optimierung: Datentabellen und Suchfunktionen ~3 s schneller durch intelligentes Prefetching und Caching mit TanStack Query",
         "End-to-End-Begleitung von Produktiv-Deployments sowie zügige Diagnose und Behebung von Hotfixes im Live-Betrieb"
       ]
     },
@@ -523,7 +589,7 @@ export const portfolioDataDE: PortfolioData = {
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Energiekonzern",
-      image: "/assets/proj2.jpg",
+      image: "/assets/proj-onboarding-de.jpg",
       shortDesc: "Greenfield-Architektur mit Next.js: Mobile Onboarding-App für neue Mitarbeiter gepaart mit einem datenintensiven HR-Dashboard, Auth.js, Zustand und GraphQL.",
       fullDesc: "Ganzheitliche Konzeption und Implementierung einer mobilen Mitarbeiter-Onboarding-App sowie des dazugehörigen Administrations-Dashboards von Grund auf (Greenfield) für einen großen Energiekonzern unter Einsatz von Next.js, React und TypeScript im Nx-Monorepo. Aufbau einer intuitiven, fehlertoleranten Benutzerführung mit typsicherer Validierung komplexer Formulare mittels React Hook Form und Zod. Implementierung eines schlanken, reaktiven globalen State Managements via Zustand und Integration sicherer Login- und Rollenstrukturen über Auth.js. Schnittstellendesign und optimierter Datenabruf via GraphQL in enger Abstimmung mit dem Backend-Team sowie partnerschaftliche UX-Umsetzung mit Product Ownern.",
       metrics: [
@@ -532,7 +598,8 @@ export const portfolioDataDE: PortfolioData = {
         { label: "State & Auth", value: "Zustand & Auth.js" }
       ],
       tags: ["Next.js", "React.js", "TypeScript", "GraphQL", "Zustand", "Auth.js", "React Hook Form", "Zod", "Nx Monorepo", "Responsive CSS"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20Mobile%20Onboarding%20App",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20Mobile%20Onboarding%20App",
       highlights: [
         "Architektur und Neuaufbau der mobilen Onboarding-App sowie des HR-Dashboards von Grund auf mit Next.js",
         "Aufbau komplexer, wiederverwendbarer UI-Workflows mit typsicherer Validierung mittels React Hook Form und Zod",
@@ -547,7 +614,7 @@ export const portfolioDataDE: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenportale zur betrieblichen Altersvorsorge",
-      image: "/assets/proj3.jpg",
+      image: "/assets/proj-portals-de.jpg",
       shortDesc: "Fortlaufende Weiterentwicklung zweier hochfrequentierter Kundenportale: Modulare UI/UX-Modernisierung hin zu barrierearmen, voll responsiven Komponenten.",
       fullDesc: "Fortlaufende Betreuung, Skalierung und funktionale Erweiterung von zwei geschäftskritischen, hochfrequentierten Kundenanwendungen zur betrieblichen Altersvorsorge. Überarbeitung bestehender Frontend-Strukturen auf React-Basis hin zu barrierearmen, voll responsiven und modularen Komponenten. Technische Ausgestaltung neuer Fachmodule von der initialen Stakeholder-Abstimmung bis zum stabilen Produktivgang im agilen Scrum-Setup.",
       metrics: [
@@ -556,7 +623,8 @@ export const portfolioDataDE: PortfolioData = {
         { label: "Komponenten", value: "Modular & Responsiv" }
       ],
       tags: ["React.js", "TypeScript", "Nx Monorepo", "Modular Components", "Accessibility (a11y)", "Responsive CSS", "Scrum"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20Vorsorgeportale",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Anfrage%20Vorsorgeportale",
       highlights: [
         "Fortlaufende Weiterentwicklung und funktionale Erweiterung von zwei hochfrequentierten Kundenanwendungen",
         "UI/UX-Modernisierung: Überarbeitung bestehender Frontend-Strukturen hin zu barrierearmen, voll responsiven und modularen Komponenten",
@@ -571,7 +639,6 @@ export const portfolioDataDE: PortfolioData = {
     company: "Melting Experience GmbH / melting elements gmbh",
     location: "Schulterblatt 36, 20357 Hamburg",
     quote: "Die ihm übertragenen Aufgaben erfüllte Thomas Weigert stets äußerst zuverlässig, sorgfältig und termingerecht mit konstant gutem bis sehr gutem Ergebnis. Auch unter hoher Arbeitsbelastung und Zeitdruck behielt er stets den Überblick und verstand es, Prioritäten sinnvoll und richtig zu setzen. Er identifizierte sich in hohem Maße mit seinen Aufgaben und erledigte diese stets mit hohem Verantwortungsbewusstsein, Effizienz und persönlichem Engagement.",
-    rating: "Sehr gut",
     badge: "Arbeitszeugnis"
   },
 
@@ -688,21 +755,21 @@ export const portfolioDataEN: PortfolioData = {
   profile: {
     name: "Thomas Weigert",
     title: "Frontend Engineer",
-    subtitle: "TypeScript • React.js • Next.js • TanStack Query • Nx Monorepo",
+    subtitle: "TypeScript • React • Next.js • TanStack Query • NestJS • AI Integration",
+    valueProp: "I build fast, maintainable web apps with React, Next.js and TypeScript, from data-heavy admin platforms to AI integration.",
     headline: "Honest craftsmanship, thoughtful code, and an eye for the essential.",
     subheadline: "Frontend Engineer based in Henstedt-Ulzburg (near Hamburg, Germany). Combining over 3 years of hands-on experience in modern monorepo web development with 8 years of analytical precision from the financial sector.",
-    bio: "I build and scale modern web applications focused on clean architecture, intuitive usability, and tangible performance. Away from the terminal, I spend time in nature with my dogs, listen to acoustic country music, or cook with passion.",
-    status: "Open for new engineering opportunities",
-    location: "Henstedt-Ulzburg / Hamburg, Germany (On-site & Remote)",
+    bio: "I build and scale modern web applications focused on clean architecture, intuitive usability, and tangible performance. Away from the terminal, I spend time in nature with my dogs, listen to acoustic country music, or cook with passion. Eight years in financial services (banking, mortgage lending) and three years of frontend work for company pension platforms: for fintech, banking and insurance projects, I bring the domain knowledge with me.",
+    status: "Open to full-time roles & freelance projects",
+    location: "Hamburg (Henstedt-Ulzburg) · on-site & remote",
     email: "thomasweigert91@gmail.com",
-    phone: "+49 176 63646990",
     linkedin: "https://linkedin.com/in/thomas-weigert-frontend/",
     github: "https://github.com/thomasweigert91",
     stats: [
       { label: "Years Frontend Practice", value: "3+" },
       { label: "Financial Sector Practice", value: "8 Years" },
-      { label: "Table Query Speedup", value: "-3 Sec." },
-      { label: "Reference Evaluation", value: "Top Grade" }
+      { label: "faster tables & search", value: "~3 s" },
+      { label: "Production apps", value: "5" }
     ]
   },
 
@@ -750,12 +817,12 @@ export const portfolioDataEN: PortfolioData = {
       sceneNumber: "01",
       sceneName: "Focus & Foundation",
       heading: "Modern frontend engineering focused on quality, performance, and reliability.",
-      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) based near Hamburg, Germany.",
+      subheading: "Thomas Weigert · Frontend Engineer (React · TypeScript · Next.js) based in Hamburg (Henstedt-Ulzburg), Germany.",
       description: "I build user-centric, high-performance web applications with clean architecture and maintainable code. Backed by solid enterprise project experience and an analytical eye for business-critical workflows.",
-      ctaText: "View Featured Projects",
+      ctaText: "View projects",
       ctaHref: "#projects",
-      secondaryCtaText: "Experience & Reference",
-      secondaryCtaHref: "#experience",
+      secondaryCtaText: "Download CV",
+      secondaryCtaHref: "/CV_Thomas_Weigert.pdf",
       visualNote: "Inspiring workspace on the cabin deck overlooking the sunlit forest, with laptop and steaming coffee.",
       imagePlate: "/assets/scene1.jpg"
     },
@@ -765,7 +832,7 @@ export const portfolioDataEN: PortfolioData = {
       sceneName: "Precision & Craft",
       heading: "Precision in the details, vision in the architecture.",
       subheading: "Analytical discipline meets modern web technologies and thoughtful user experience.",
-      description: "Great software is built at the intersection of engineering excellence and real product understanding. My business background gives me a sharp instinct for data, workflows, and usability — translating complex requirements into intuitive, lasting interfaces.",
+      description: "Great software is built at the intersection of engineering excellence and real product understanding. My business background gives me a sharp instinct for data, workflows, and usability — translating complex requirements into intuitive, lasting interfaces. Eight years in financial services (banking, mortgage lending) and three years of frontend work for company pension platforms: for fintech, banking and insurance projects, I bring the domain knowledge with me.",
       ctaText: "Explore Architectures",
       ctaHref: "#projects",
       secondaryCtaText: "Tech Stack & Skills",
@@ -777,10 +844,10 @@ export const portfolioDataEN: PortfolioData = {
       id: "scene-3",
       sceneNumber: "03",
       sceneName: "Reliability & Team Fit",
-      heading: "Ready to bring dependable engineering to your product.",
-      subheading: "Available for ambitious frontend roles (Remote / Hybrid Hamburg area).",
-      description: "Looking for a frontend engineer who takes ownership, values clean maintainable code, and thrives in transparent, collaborative teams? Let’s connect.",
-      ctaText: "Send a message",
+      heading: "Ready to bring dependable engineering to your team or project.",
+      subheading: "Open to full-time frontend roles and freelance projects (Remote / Hybrid Hamburg area).",
+      description: "Looking for a frontend engineer to join your team, or support for a specific project? I take ownership, value clean, maintainable code, and thrive in transparent, collaborative teams. Let’s connect.",
+      ctaText: "Discuss a role or project",
       ctaHref: "#contact",
       secondaryCtaText: "thomasweigert91@gmail.com",
       secondaryCtaHref: "mailto:thomasweigert91@gmail.com",
@@ -791,26 +858,53 @@ export const portfolioDataEN: PortfolioData = {
 
   projects: [
     {
+      id: "gitspore",
+      title: "GitSpore",
+      category: "Team project / Training (Capstone)",
+      period: "10/2026",
+      role: "Developer, team of three",
+      client: "Capstone project · team of three",
+      image: "/assets/proj-gitspore.jpg",
+      shortDesc: "Interactive 3D greenhouse for visualizing and controlling AI coding agents and Git worktrees. Next.js + React Three Fiber, NestJS daemon, npm workspaces monorepo.",
+      fullDesc: "GitSpore turns AI coding agents and their Git worktrees into an interactive 3D greenhouse you can watch and control. The frontend is built with Next.js and React Three Fiber, a NestJS daemon streams the state in real time, and both live in an npm workspaces monorepo. Built as the capstone project of my advanced training in a team of three.",
+      metrics: [
+        { label: "Team", value: "3 people" },
+        { label: "Project type", value: "Capstone" },
+        { label: "Tests", value: "Jest" }
+      ],
+      tags: ["Next.js", "React Three Fiber", "NestJS", "TypeScript", "WebSocket", "Zustand", "Jest", "npm Workspaces"],
+      githubUrl: "https://github.com/gitspore/gitspore",
+      highlightsTitle: "My contribution",
+      highlights: [
+        "Monorepo and CI setup (npm workspaces)",
+        "Shared type contract between daemon and frontend",
+        "Daemon security layer: session-token auth, origin and host checks in the WebSocket handshake, state gateway with a snapshot on connect",
+        "Real-time data layer in the frontend: typed client interface, socket client, mock client with scenario player and fake clock for development without the daemon, Zustand store with selectors and connection status",
+        "Everything covered by Jest tests"
+      ]
+    },
+    {
       id: "bav-admin-tool",
       title: "Admin Tool for Company Pension Schemes",
       category: "Enterprise Administration Platform",
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Enterprise Pension & Insurance Administration Application",
-      image: "/assets/proj1.jpg",
-      shortDesc: "Mission-critical administration software: Targeted refactoring of a legacy codebase and 3-second table acceleration using intelligent TanStack Query prefetching.",
-      fullDesc: "Autonomous ownership and continuous evolution of the frontend architecture for mission-critical company pension administration software built purely with React and TypeScript inside a central Nx monorepo. Executed targeted refactoring and modernization of a historically grown legacy codebase while ensuring continuous zero-downtime operational stability. Accelerated data tables and search queries by 3 seconds through client-side caching and prefetching with TanStack Query. Accompanied live production deployments and resolved hotfixes swiftly.",
+      image: "/assets/proj-admin-en.jpg",
+      shortDesc: "Mission-critical administration software: Targeted refactoring of a legacy codebase and ~3 s faster data tables using intelligent TanStack Query prefetching.",
+      fullDesc: "Autonomous ownership and continuous evolution of the frontend architecture for mission-critical company pension administration software built purely with React and TypeScript inside a central Nx monorepo. Executed targeted refactoring and modernization of a historically grown legacy codebase while keeping operations stable. Made data tables and search ~3 s faster through client-side caching and prefetching with TanStack Query. Accompanied live production deployments and resolved hotfixes swiftly.",
       metrics: [
-        { label: "Table Query Speedup", value: "+3 Sec." },
-        { label: "Operational Uptime", value: "100% Live" },
+        { label: "Tables & search", value: "~3 s faster" },
+        { label: "Deployment & hotfixes", value: "Production support" },
         { label: "Architecture", value: "React & Nx" }
       ],
       tags: ["React.js", "TypeScript", "TanStack Query", "Nx Monorepo", "REST APIs", "CSS", "Scrum"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20bAV%20Admin%20Tool",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20bAV%20Admin%20Tool",
       highlights: [
         "Autonomous ownership and frontend architecture maintenance on a pure React and TypeScript foundation",
-        "Legacy modernization and disciplined refactoring of core modules with zero downtime",
-        "Performance optimization: Accelerated data tables and search queries by 3 seconds via TanStack Query caching and prefetching",
+        "Legacy modernization and disciplined refactoring of core modules while keeping operations stable",
+        "Performance optimization: Data tables and search ~3 s faster via TanStack Query caching and prefetching",
         "End-to-end production deployment management and rapid live hotfix diagnosis"
       ]
     },
@@ -821,7 +915,7 @@ export const portfolioDataEN: PortfolioData = {
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Leading Energy Corporation",
-      image: "/assets/proj2.jpg",
+      image: "/assets/proj-onboarding-en.jpg",
       shortDesc: "Greenfield architecture with Next.js: Mobile onboarding app for new hires paired with a data-intensive HR administration dashboard, Auth.js, Zustand, and GraphQL.",
       fullDesc: "Holistic greenfield conception and development of an employee onboarding mobile app and companion administrative dashboard from scratch for a major energy corporation using Next.js, React, and TypeScript within an Nx monorepo. Built an intuitive, fault-tolerant user journey with strict type-safe form validation using React Hook Form and Zod. Established lean reactive global state with Zustand and integrated secure role-based login workflows via Auth.js. Designed and optimized GraphQL queries in close alignment with the backend team and product owners.",
       metrics: [
@@ -830,7 +924,8 @@ export const portfolioDataEN: PortfolioData = {
         { label: "State & Auth", value: "Zustand & Auth.js" }
       ],
       tags: ["Next.js", "React.js", "TypeScript", "GraphQL", "Zustand", "Auth.js", "React Hook Form", "Zod", "Nx Monorepo", "Responsive CSS"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20Mobile%20Onboarding%20App",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20Mobile%20Onboarding%20App",
       highlights: [
         "Greenfield architecture and implementation of both mobile onboarding app and HR dashboard from scratch using Next.js",
         "Complex reusable form workflows with strict schema-based validation via React Hook Form and Zod",
@@ -845,7 +940,7 @@ export const portfolioDataEN: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Customer Portals for Corporate Pension Schemes",
-      image: "/assets/proj3.jpg",
+      image: "/assets/proj-portals-en.jpg",
       shortDesc: "Continuous scaling and modular UI/UX modernization of two high-traffic customer portals toward accessible, fully responsive components.",
       fullDesc: "Continuous evolution, scaling, and feature expansion of two business-critical customer portals for company pension management. Refactored existing React frontend structures into accessible (a11y-compliant), fully responsive, and modular components. Took technical ownership of new functional modules from initial stakeholder grooming through to stable production releases in an agile Scrum team.",
       metrics: [
@@ -854,7 +949,8 @@ export const portfolioDataEN: PortfolioData = {
         { label: "Components", value: "Modular & Responsive" }
       ],
       tags: ["React.js", "TypeScript", "Nx Monorepo", "Modular Components", "Accessibility (a11y)", "Responsive CSS", "Scrum"],
-      liveUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20Pension%20Portals",
+      nda: true,
+      inquiryUrl: "mailto:thomasweigert91@gmail.com?subject=Inquiry%20Pension%20Portals",
       highlights: [
         "Continuous scaling and functional feature expansion of two high-frequency customer applications",
         "UI/UX modernization: Refactored existing frontend layers into accessible, fully responsive, and modular component sets",
@@ -869,7 +965,6 @@ export const portfolioDataEN: PortfolioData = {
     company: "Melting Experience GmbH / melting elements gmbh",
     location: "Schulterblatt 36, 20357 Hamburg, Germany",
     quote: "Thomas Weigert performed the tasks assigned to him at all times with utmost reliability, diligence, and punctuality, delivering consistently good to very good results. Even under heavy workloads and time constraints, he always maintained an overview and prioritized effectively and purposefully. He identified strongly with his responsibilities and executed them with high accountability, efficiency, and personal dedication.",
-    rating: "Top Evaluation",
     badge: "Reference Letter"
   },
 
