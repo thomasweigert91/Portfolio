@@ -46,30 +46,45 @@ export default function HeroCanvas({ progressRef, telemetryTag, locationTag }: H
   const imagesRef = useRef<Partial<Record<keyof typeof SCENE_PLATES, HTMLImageElement>>>({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Preload scene visual plates
+  // Load the scene plates after the page (and its text) has loaded, so the large
+  // images never compete with fonts and scripts for the first paint.
+  // Scene 1 comes first; the canvas fades in as soon as it is ready.
   useEffect(() => {
-    const entries = Object.entries(SCENE_PLATES) as [keyof typeof SCENE_PLATES, string][];
-    let loadedCount = 0;
     let cancelled = false;
 
-    const markLoaded = () => {
-      loadedCount++;
-      if (loadedCount === entries.length && !cancelled) setImagesLoaded(true);
+    const loadPlate = (key: keyof typeof SCENE_PLATES) =>
+      new Promise<void>((resolve) => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => {
+          if (!cancelled) imagesRef.current[key] = img;
+          resolve();
+        };
+        img.onerror = () => resolve();
+        img.src = SCENE_PLATES[key];
+      });
+
+    const loadAll = async () => {
+      await loadPlate('scene1');
+      if (cancelled) return;
+      setImagesLoaded(true);
+      await Promise.all([loadPlate('scene2'), loadPlate('scene3')]);
     };
 
-    entries.forEach(([key, src]) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = src;
-      img.onload = () => {
-        imagesRef.current[key] = img;
-        markLoaded();
-      };
-      img.onerror = markLoaded;
-    });
+    const schedule = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => void loadAll(), { timeout: 1500 });
+      } else {
+        setTimeout(() => void loadAll(), 200);
+      }
+    };
+
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
 
     return () => {
       cancelled = true;
+      window.removeEventListener('load', schedule);
     };
   }, []);
 
@@ -285,10 +300,34 @@ export default function HeroCanvas({ progressRef, telemetryTag, locationTag }: H
       frameId = requestAnimationFrame(render);
     };
 
-    frameId = requestAnimationFrame(render);
+    // Only animate while the tab is visible and the hero is on screen.
+    let inView = true;
+    const start = () => {
+      if (frameId === null && inView && !document.hidden) {
+        frameId = requestAnimationFrame(render);
+      }
+    };
+    const stop = () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = null;
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView) start();
+      else stop();
+    });
+    observer.observe(canvas);
+
+    const handleVisibility = () => (document.hidden ? stop() : start());
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    start();
 
     return () => {
-      if (frameId !== null) cancelAnimationFrame(frameId);
+      stop();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [progressRef, telemetryTag, locationTag]);

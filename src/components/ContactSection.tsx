@@ -77,7 +77,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, profile, u
 
           {/* Social Profiles */}
           <div>
-            <div className="text-xs font-mono text-stone-500 uppercase tracking-wider mb-3">
+            <div className="text-xs font-mono text-stone-400 uppercase tracking-wider mb-3">
               {ui.contact.profilesLabel}
             </div>
             <div className="flex flex-wrap gap-2.5">

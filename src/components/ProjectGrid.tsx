@@ -21,10 +21,9 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, ui }) => {
       {/* Projects Grid with Double-Bezel Hardware Architecture */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {projects.map((project) => (
-          <div
+          <article
             key={project.id}
-            onClick={() => setSelectedProject(project)}
-            className="group cursor-pointer p-1.5 rounded-[2rem] bg-white/[0.03] ring-1 ring-white/10 hover:ring-amber-500/40 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-[0_16px_48px_rgba(229,152,58,0.12)] hover:-translate-y-1 active:scale-[0.99]"
+            className="group relative cursor-pointer p-1.5 focus-within:ring-2 focus-within:ring-amber-400 rounded-[2rem] bg-white/[0.03] ring-1 ring-white/10 hover:ring-amber-500/40 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-[0_16px_48px_rgba(229,152,58,0.12)] hover:-translate-y-1 active:scale-[0.99]"
           >
             <div className="rounded-[calc(2rem-0.375rem)] bg-[#191512] overflow-hidden flex flex-col justify-between h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.07)]">
               <div>
@@ -32,13 +31,13 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, ui }) => {
                 <div className="relative aspect-[16/10] overflow-hidden bg-black/50">
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt=""
                     fill
                     sizes="(min-width: 1024px) 400px, 100vw"
                     className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#191512] via-transparent to-transparent opacity-90" />
-                  
+
                   {/* Badges */}
                   <div className="absolute top-4 left-4 flex items-center gap-2">
                     <span className="px-3 py-1 rounded-md bg-[#14110F]/85 backdrop-blur-md border border-amber-500/30 text-xs font-mono text-amber-300">
@@ -101,13 +100,19 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, ui }) => {
                   )}
                 </div>
 
-                <span className="text-xs font-mono text-amber-300 group-hover:underline flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(project)}
+                  aria-haspopup="dialog"
+                  aria-label={`${ui.projects.detailsButton}: ${project.title}`}
+                  className="text-xs font-mono text-amber-300 group-hover:underline flex items-center gap-1 cursor-pointer outline-none after:absolute after:inset-0 after:rounded-[2rem] after:content-['']"
+                >
                   <span>{ui.projects.detailsButton}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </span>
+                  <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </button>
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 

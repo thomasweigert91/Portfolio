@@ -131,8 +131,10 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
             return (
               <button
                 key={s.id}
+                type="button"
                 onClick={() => scrollToScene(idx)}
-                className="group flex items-center gap-3 text-left focus:outline-none cursor-pointer"
+                aria-label={`${s.sceneNumber}: ${s.sceneName}`}
+                className="group flex items-center gap-3 text-left rounded-md cursor-pointer"
                 title={`${s.sceneNumber}: ${s.sceneName}`}
               >
                 <span

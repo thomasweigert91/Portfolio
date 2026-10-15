@@ -102,7 +102,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
   return (
     <>
               {submissionStatus === "success" ? (
-                <div className="py-12 text-center space-y-5">
+                <div role="status" className="py-12 text-center space-y-5">
                   <div className="w-14 h-14 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(16,185,129,0.25)]">
                     <Check className="w-7 h-7" />
                   </div>
@@ -157,7 +157,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   <div>
                     <h3 className="text-xl font-bold font-fraunces text-white mb-1">
                       {ui.contact.formTitle}
@@ -184,20 +184,26 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name */}
                     <div>
-                      <label className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
+                      <label htmlFor="contact-name" className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
                         {ui.contact.nameLabel}
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
+                        autoComplete="name"
+                        required
+                        aria-invalid={Boolean(errors.name)}
+                        aria-describedby={errors.name ? "contact-name-error" : undefined}
                         placeholder={ui.contact.namePlaceholder}
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-600 text-sm focus:outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-500 text-sm focus:outline-none transition-all"
                       />
                       {errors.name && (
-                        <p className="text-xs text-rose-400 mt-1">
+                        <p id="contact-name-error" className="text-xs text-rose-300 mt-1">
                           {errors.name}
                         </p>
                       )}
@@ -205,20 +211,26 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
 
                     {/* Email */}
                     <div>
-                      <label className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
+                      <label htmlFor="contact-email" className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
                         {ui.contact.emailFormLabel}
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
+                        required
+                        aria-invalid={Boolean(errors.email)}
+                        aria-describedby={errors.email ? "contact-email-error" : undefined}
                         placeholder={ui.contact.emailPlaceholder}
                         value={formData.email}
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-600 text-sm focus:outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-500 text-sm focus:outline-none transition-all"
                       />
                       {errors.email && (
-                        <p className="text-xs text-rose-400 mt-1">
+                        <p id="contact-email-error" className="text-xs text-rose-300 mt-1">
                           {errors.email}
                         </p>
                       )}
@@ -227,10 +239,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
 
                   {/* Subject */}
                   <div>
-                    <label className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
+                    <label htmlFor="contact-subject" className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
                       {ui.contact.subjectLabel}
                     </label>
                     <select
+                      id="contact-subject"
+                      name="subject"
+                      required
+                      aria-invalid={Boolean(errors.subject)}
+                      aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                       value={formData.subject}
                       onChange={(e) =>
                         setFormData({ ...formData, subject: e.target.value })
@@ -247,7 +264,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                       ))}
                     </select>
                     {errors.subject && (
-                      <p className="text-xs text-rose-400 mt-1">
+                      <p id="contact-subject-error" className="text-xs text-rose-300 mt-1">
                         {errors.subject}
                       </p>
                     )}
@@ -256,7 +273,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                   {/* Message */}
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <label className="text-xs font-mono text-stone-300 uppercase tracking-wider">
+                      <label htmlFor="contact-message" className="text-xs font-mono text-stone-300 uppercase tracking-wider">
                         {ui.contact.messageLabel}
                       </label>
                       <span className="text-xs font-mono text-stone-400">
@@ -264,16 +281,22 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                       </span>
                     </div>
                     <textarea
+                      id="contact-message"
+                      name="message"
+                      required
+                      minLength={10}
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
                       rows={4}
                       placeholder={ui.contact.messagePlaceholder}
                       value={formData.message}
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-600 text-sm focus:outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-500 text-sm focus:outline-none transition-all resize-none"
                     />
                     {errors.message && (
-                      <p className="text-xs text-rose-400 mt-1">
+                      <p id="contact-message-error" className="text-xs text-rose-300 mt-1">
                         {errors.message}
                       </p>
                     )}
@@ -281,7 +304,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
 
                   {/* Error Notification Banner */}
                   {submissionStatus === "error" && (
-                    <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs space-y-3">
+                    <div role="alert" className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs space-y-3">
                       <div className="flex items-start gap-2.5">
                         <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <div className="leading-relaxed">

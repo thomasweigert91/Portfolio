@@ -42,11 +42,11 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
       <div className="max-w-[92rem] mx-auto px-4 sm:px-10 lg:px-12 flex items-center justify-between gap-3 sm:gap-6">
         
         {/* Brand / Logo Lockup */}
-        <a href="#story" aria-label={name} className="group flex items-center gap-2.5 sm:gap-3.5 focus:outline-none min-w-0">
+        <a href="#story" className="group flex items-center gap-2.5 sm:gap-3.5 rounded-2xl min-w-0">
           <div className="relative w-10 h-10 flex items-center justify-center rounded-2xl bg-[#1E1916] border border-amber-500/30 p-1.5 group-hover:border-amber-400 transition-all duration-300 shadow-[0_0_15px_rgba(229,152,58,0.15)] shrink-0">
             <Image src="/logo.svg" alt="" width={28} height={28} className="w-full h-full object-contain" />
           </div>
-          <div className="hidden min-[420px]:flex flex-col whitespace-nowrap">
+          <div className="sr-only min-[420px]:not-sr-only min-[420px]:flex flex-col whitespace-nowrap">
             <span className="font-fraunces font-bold text-base tracking-tight text-white group-hover:text-amber-300 transition-colors whitespace-nowrap">
               {name}
             </span>
@@ -76,6 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
             <a
               href="/de/"
               hrefLang="de"
+              lang="de"
               aria-current={lang === 'de' ? 'page' : undefined}
               className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'de'
@@ -83,14 +84,14 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
                   : 'text-stone-400 hover:text-white'
               }`}
               title="Auf Deutsch wechseln"
-              aria-label="Deutsch"
             >
-              DE
+              DE<span className="sr-only"> (Deutsch)</span>
             </a>
             <span className="text-stone-600 text-xs px-0.5 select-none" aria-hidden="true">|</span>
             <a
               href="/en/"
               hrefLang="en"
+              lang="en"
               aria-current={lang === 'en' ? 'page' : undefined}
               className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'en'
@@ -98,14 +99,15 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
                   : 'text-stone-400 hover:text-white'
               }`}
               title="Switch to English"
-              aria-label="English"
             >
-              EN
+              EN<span className="sr-only"> (English)</span>
             </a>
           </div>
 
           {/* Motion Mode Control */}
           <button
+            type="button"
+            aria-pressed={reducedMotion}
             onClick={onToggleReducedMotion}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 cursor-pointer shrink-0 ${
               reducedMotion
@@ -140,25 +142,25 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
             <a
               href="/de/"
               hrefLang="de"
+              lang="de"
               aria-current={lang === 'de' ? 'page' : undefined}
-              aria-label="Deutsch"
               className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'de' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
-              DE
+              DE<span className="sr-only"> (Deutsch)</span>
             </a>
             <span className="text-stone-600 text-xs px-0.5 select-none" aria-hidden="true">|</span>
             <a
               href="/en/"
               hrefLang="en"
+              lang="en"
               aria-current={lang === 'en' ? 'page' : undefined}
-              aria-label="English"
               className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'en' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
-              EN
+              EN<span className="sr-only"> (English)</span>
             </a>
           </div>
 
@@ -176,9 +178,12 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
           </a>
 
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 cursor-pointer active:scale-95 transition-transform"
-            aria-label="Navigation umschalten"
+            aria-label={lang === 'de' ? 'Navigation umschalten' : 'Toggle navigation'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -188,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#1A1613] border-b border-white/10 px-6 py-6 space-y-4">
+        <div id="mobile-menu" className="lg:hidden bg-[#1A1613] border-b border-white/10 px-6 py-6 space-y-4">
           <nav className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <a
@@ -217,6 +222,8 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
 
             {/* Motion toggle */}
             <button
+              type="button"
+              aria-pressed={reducedMotion}
               onClick={() => { onToggleReducedMotion(); setMobileMenuOpen(false); }}
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-stone-200"
             >
