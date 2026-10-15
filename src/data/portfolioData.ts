@@ -564,7 +564,7 @@ export const portfolioDataDE: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenanwendung zur betrieblichen Altersvorsorge",
-      image: "/assets/proj1.jpg",
+      image: "/assets/proj-admin-de.jpg",
       shortDesc: "Geschäftskritische Verwaltungssoftware: Gezieltes Refactoring der historisch gewachsenen Codebase und ~3 s schnellere Datentabellen durch intelligentes TanStack Query Prefetching.",
       fullDesc: "Eigenständige Betreuung und Weiterentwicklung der Frontend-Architektur für eine geschäftskritische bAV-Verwaltungssoftware auf reiner React- und TypeScript-Basis innerhalb des zentralen Nx-Monorepos. Gezieltes Refactoring und schrittweise Modernisierung gewachsener Legacy-Strukturen unter Beibehaltung höchster Ausfall- und Betriebsstabilität. Durch Einführung von intelligentem Prefetching und clientseitigem Caching mit TanStack Query wurden Datentabellen und Suchfunktionen ~3 s schneller. Begleitung von Produktiv-Deployments und Hotfixes im Live-Betrieb.",
       metrics: [
@@ -589,7 +589,7 @@ export const portfolioDataDE: PortfolioData = {
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Energiekonzern",
-      image: "/assets/proj2.jpg",
+      image: "/assets/proj-onboarding-de.jpg",
       shortDesc: "Greenfield-Architektur mit Next.js: Mobile Onboarding-App für neue Mitarbeiter gepaart mit einem datenintensiven HR-Dashboard, Auth.js, Zustand und GraphQL.",
       fullDesc: "Ganzheitliche Konzeption und Implementierung einer mobilen Mitarbeiter-Onboarding-App sowie des dazugehörigen Administrations-Dashboards von Grund auf (Greenfield) für einen großen Energiekonzern unter Einsatz von Next.js, React und TypeScript im Nx-Monorepo. Aufbau einer intuitiven, fehlertoleranten Benutzerführung mit typsicherer Validierung komplexer Formulare mittels React Hook Form und Zod. Implementierung eines schlanken, reaktiven globalen State Managements via Zustand und Integration sicherer Login- und Rollenstrukturen über Auth.js. Schnittstellendesign und optimierter Datenabruf via GraphQL in enger Abstimmung mit dem Backend-Team sowie partnerschaftliche UX-Umsetzung mit Product Ownern.",
       metrics: [
@@ -614,7 +614,7 @@ export const portfolioDataDE: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Kundenportale zur betrieblichen Altersvorsorge",
-      image: "/assets/proj3.jpg",
+      image: "/assets/proj-portals-de.jpg",
       shortDesc: "Fortlaufende Weiterentwicklung zweier hochfrequentierter Kundenportale: Modulare UI/UX-Modernisierung hin zu barrierearmen, voll responsiven Komponenten.",
       fullDesc: "Fortlaufende Betreuung, Skalierung und funktionale Erweiterung von zwei geschäftskritischen, hochfrequentierten Kundenanwendungen zur betrieblichen Altersvorsorge. Überarbeitung bestehender Frontend-Strukturen auf React-Basis hin zu barrierearmen, voll responsiven und modularen Komponenten. Technische Ausgestaltung neuer Fachmodule von der initialen Stakeholder-Abstimmung bis zum stabilen Produktivgang im agilen Scrum-Setup.",
       metrics: [
@@ -890,7 +890,7 @@ export const portfolioDataEN: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Enterprise Pension & Insurance Administration Application",
-      image: "/assets/proj1.jpg",
+      image: "/assets/proj-admin-en.jpg",
       shortDesc: "Mission-critical administration software: Targeted refactoring of a legacy codebase and ~3 s faster data tables using intelligent TanStack Query prefetching.",
       fullDesc: "Autonomous ownership and continuous evolution of the frontend architecture for mission-critical company pension administration software built purely with React and TypeScript inside a central Nx monorepo. Executed targeted refactoring and modernization of a historically grown legacy codebase while keeping operations stable. Made data tables and search ~3 s faster through client-side caching and prefetching with TanStack Query. Accompanied live production deployments and resolved hotfixes swiftly.",
       metrics: [
@@ -915,7 +915,7 @@ export const portfolioDataEN: PortfolioData = {
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
       client: "Leading Energy Corporation",
-      image: "/assets/proj2.jpg",
+      image: "/assets/proj-onboarding-en.jpg",
       shortDesc: "Greenfield architecture with Next.js: Mobile onboarding app for new hires paired with a data-intensive HR administration dashboard, Auth.js, Zustand, and GraphQL.",
       fullDesc: "Holistic greenfield conception and development of an employee onboarding mobile app and companion administrative dashboard from scratch for a major energy corporation using Next.js, React, and TypeScript within an Nx monorepo. Built an intuitive, fault-tolerant user journey with strict type-safe form validation using React Hook Form and Zod. Established lean reactive global state with Zustand and integrated secure role-based login workflows via Auth.js. Designed and optimized GraphQL queries in close alignment with the backend team and product owners.",
       metrics: [
@@ -940,7 +940,7 @@ export const portfolioDataEN: PortfolioData = {
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
       client: "Customer Portals for Corporate Pension Schemes",
-      image: "/assets/proj3.jpg",
+      image: "/assets/proj-portals-en.jpg",
       shortDesc: "Continuous scaling and modular UI/UX modernization of two high-traffic customer portals toward accessible, fully responsive components.",
       fullDesc: "Continuous evolution, scaling, and feature expansion of two business-critical customer portals for company pension management. Refactored existing React frontend structures into accessible (a11y-compliant), fully responsive, and modular components. Took technical ownership of new functional modules from initial stakeholder grooming through to stable production releases in an agile Scrum team.",
       metrics: [
