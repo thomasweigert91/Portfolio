@@ -58,7 +58,7 @@ Departing from generic, sterile tech aesthetics, this portfolio communicates per
 
 ### 7. Interactive Contact & Live Telemetry (`ContactSection.tsx` & `Footer.tsx`)
 - Contact form with client-side validation, live character counter, draft preview payload, and reset capabilities.
-- Quick one-click email and phone clipboard copy with visual checkmarks.
+- Quick one-click email clipboard copy with visual checkmarks.
 - Real-time Hamburg/Henstedt-Ulzburg telemetry clock with dynamic timezone label (`MEZ` / `CET`).
 
 ---
@@ -143,7 +143,6 @@ npm run preview
 - **Role:** Frontend Engineer
 - **Location:** Henstedt-Ulzburg / Hamburg, Germany (On-site & Remote)
 - **Email:** [thomasweigert91@gmail.com](mailto:thomasweigert91@gmail.com)
-- **Phone:** [+49 176 63646990](tel:+4917663646990)
 - **LinkedIn:** [linkedin.com/in/thomas-weigert-frontend](https://linkedin.com/in/thomas-weigert-frontend/)
 - **GitHub:** [github.com/thomasweigert91](https://github.com/thomasweigert91)
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { X, CheckCircle2, Layers, Cpu, Mail } from 'lucide-react';
+import { X, CheckCircle2, Layers, Cpu, Mail, ExternalLink, Lock } from 'lucide-react';
 import type { ProjectItem } from '@/data/portfolioData';
 import type { UiDictionary } from '@/i18n/dictionaries';
 
@@ -138,7 +138,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, ui, onClose
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-widest text-amber-300 mb-3 flex items-center gap-2">
                   <Cpu className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{ui.projects.modalMilestones}</span>
+                  <span>{project.highlightsTitle ?? ui.projects.modalMilestones}</span>
                 </h4>
                 <div className="space-y-2.5">
                   {project.highlights.map((highlight, idx) => (
@@ -169,8 +169,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, ui, onClose
 
               {/* Action Bar */}
               <div className="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-                <div className="text-xs font-mono text-stone-400">
-                  {ui.projects.modalRole} <span className="text-white font-medium">{project.role}</span>
+                <div className="space-y-1.5">
+                  <div className="text-xs font-mono text-stone-400">
+                    {ui.projects.modalRole} <span className="text-white font-medium">{project.role}</span>
+                  </div>
+                  {project.nda && (
+                    <div className="flex items-center gap-1.5 text-xs font-mono text-stone-400">
+                      <Lock className="w-3 h-3 text-amber-400" />
+                      <span>{ui.projects.ndaNotice}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -181,13 +189,37 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, ui, onClose
                     {ui.projects.modalClose}
                   </button>
 
-                  <a
-                    href={project.liveUrl}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-[#14110F] font-semibold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(229,152,58,0.25)]"
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>{ui.projects.modalInquiry}</span>
-                  </a>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-[#14110F] font-semibold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(229,152,58,0.25)]"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>{ui.projects.liveButton}</span>
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-[#14110F] font-semibold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(229,152,58,0.25)]"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>{ui.projects.codeButton}</span>
+                    </a>
+                  )}
+                  {project.inquiryUrl && (
+                    <a
+                      href={project.inquiryUrl}
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-[#14110F] font-semibold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(229,152,58,0.25)]"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>{ui.projects.inquiryButton}</span>
+                    </a>
+                  )}
                 </div>
               </div>
 

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Lock } from 'lucide-react';
 import type { ProjectItem } from '@/data/portfolioData';
 import type { UiDictionary } from '@/i18n/dictionaries';
 import { ProjectModal } from './ProjectModal';
@@ -19,7 +19,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, ui }) => {
   return (
     <>
       {/* Projects Grid with Double-Bezel Hardware Architecture */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {projects.map((project) => (
           <div
             key={project.id}
@@ -66,6 +66,13 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, ui }) => {
                   <p className="text-sm text-stone-300 leading-relaxed sm:leading-7 line-clamp-3 mb-6 font-light">
                     {project.shortDesc}
                   </p>
+
+                  {project.nda && (
+                    <div className="flex items-center gap-1.5 -mt-3 mb-5 text-xs font-mono text-stone-400">
+                      <Lock className="w-3 h-3 text-amber-400 shrink-0" />
+                      <span>{ui.projects.ndaNotice}</span>
+                    </div>
+                  )}
 
                   {/* Metrics Highlight */}
                   <div className="grid grid-cols-2 gap-3 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5 mb-4">

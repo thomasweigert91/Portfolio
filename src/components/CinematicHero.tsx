@@ -109,7 +109,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
         <HeroCanvas
           progressRef={progressRef}
           telemetryTag={lang === "de" ? "NATUR & HANDWERK" : "NATURE & CRAFT"}
-          locationTag="HENSTEDT-ULZBURG · HAMBURG"
+          locationTag="HAMBURG (HENSTEDT-ULZBURG)"
         />
 
         {/* Cinematic Backdrop Scrim (Subtle on mobile so subjects shine through; deeper on desktop) */}

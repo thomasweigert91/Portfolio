@@ -14,9 +14,12 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: ui.contact.defaultSubject,
+    subject: "",
     message: "",
   });
+
+  const subjectLabel =
+    ui.contact.subjectOptions.find((o) => o.value === formData.subject)?.label ?? "";
 
   const [submissionStatus, setSubmissionStatus] = useState<
     "idle" | "submitting" | "success" | "error"
@@ -27,7 +30,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
 
   const getMailtoUrl = () => {
     const subject = encodeURIComponent(
-      formData.subject || ui.contact.defaultSubject
+      `Portfolio: ${subjectLabel || ui.contact.subjectLabel} – ${formData.name}`
     );
     const body = encodeURIComponent(
       `Hallo Thomas,\n\n${formData.message}\n\nViele Grüße,\n${formData.name} (${formData.email})`
@@ -43,6 +46,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
     if (!formData.name.trim()) newErrors.name = ui.contact.errors.name;
     if (!formData.email.trim() || !emailRegex.test(formData.email.trim()))
       newErrors.email = ui.contact.errors.email;
+    if (!subjectLabel) newErrors.subject = ui.contact.errors.subject;
     if (!formData.message.trim() || formData.message.trim().length < 10)
       newErrors.message = ui.contact.errors.message;
 
@@ -75,8 +79,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim(),
-          _subject:
-            formData.subject.trim() || `Portfolio-Anfrage von ${formData.name}`,
+          _subject: `Portfolio: ${subjectLabel} – ${formData.name.trim()}`,
+          topic: subjectLabel,
           message: formData.message.trim(),
           _captcha: "false",
           _honey: botField,
@@ -128,7 +132,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                       <span className="text-stone-400">
                         {lang === "de" ? "Betreff:" : "Subject:"}
                       </span>{" "}
-                      {formData.subject}
+                      {subjectLabel}
                     </div>
                     <div className="truncate">
                       <span className="text-stone-400">
@@ -142,7 +146,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                       setFormData({
                         name: "",
                         email: "",
-                        subject: ui.contact.defaultSubject,
+                        subject: "",
                         message: "",
                       });
                       setSubmissionStatus("idle");
@@ -226,14 +230,27 @@ export const ContactForm: React.FC<ContactFormProps> = ({ email, lang, ui }) => 
                     <label className="block text-xs font-mono text-stone-300 uppercase tracking-wider mb-2">
                       {ui.contact.subjectLabel}
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.subject}
                       onChange={(e) =>
                         setFormData({ ...formData, subject: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white placeholder-stone-600 text-sm focus:outline-none transition-all"
-                    />
+                      className="w-full px-4 py-3 rounded-xl bg-[#191512] border border-white/10 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20 text-white text-sm focus:outline-none transition-all"
+                    >
+                      <option value="" disabled>
+                        {ui.contact.subjectPlaceholder}
+                      </option>
+                      {ui.contact.subjectOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.subject && (
+                      <p className="text-xs text-rose-400 mt-1">
+                        {errors.subject}
+                      </p>
+                    )}
                   </div>
 
                   {/* Message */}

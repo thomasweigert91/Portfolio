@@ -53,7 +53,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           />
           <ProjectsSection projects={data.projects} ui={ui} />
           <PassionsSection passions={data.passions} ui={ui} />
-          <ExperienceAndSkills lang={lang} data={data} ui={ui} />
+          <ExperienceAndSkills data={data} ui={ui} />
           <ContactSection lang={lang} profile={data.profile} ui={ui} />
         </main>
 

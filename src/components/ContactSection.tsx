@@ -72,21 +72,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, profile, u
                 </div>
               </div>
 
-              {/* Phone Box */}
-              <div>
-                <div className="text-xs text-stone-400 font-mono mb-1.5">
-                  {ui.contact.phoneLabel}
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/10">
-                  <a
-                    href={`tel:${profile.phone.replace(/\s+/g, "")}`}
-                    className="font-mono text-sm text-stone-200 hover:underline select-all"
-                  >
-                    {profile.phone}
-                  </a>
-                  <CopyButton value={profile.phone} label={ui.contact.phoneLabel} />
-                </div>
-              </div>
             </div>
           </div>
 
