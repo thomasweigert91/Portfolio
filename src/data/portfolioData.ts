@@ -100,6 +100,10 @@ export interface PortfolioData {
 }
 
 export const uiTranslations: Record<Language, {
+  meta: {
+    title: string;
+    description: string;
+  };
   nav: {
     story: string;
     projects: string;
@@ -195,6 +199,10 @@ export const uiTranslations: Record<Language, {
   };
 }> = {
   de: {
+    meta: {
+      title: "Thomas Weigert · Frontend Engineer | React, Next.js & TypeScript",
+      description: "Thomas Weigert, Frontend Engineer in Hamburg: schnelle, wartbare Web-Apps mit React, Next.js und TypeScript, von datenlastigen Admin-Plattformen bis zur KI-Integration. Offen für Festanstellung & Freelance-Projekte."
+    },
     nav: {
       story: "Story",
       projects: "Projekte",
@@ -290,6 +298,10 @@ export const uiTranslations: Record<Language, {
     }
   },
   en: {
+    meta: {
+      title: "Thomas Weigert · Frontend Engineer | React, Next.js & TypeScript",
+      description: "Thomas Weigert, frontend engineer in Hamburg: fast, maintainable web apps with React, Next.js and TypeScript, from data-heavy admin platforms to AI integration. Open to full-time roles & freelance projects."
+    },
     nav: {
       story: "Story",
       projects: "Projects",
