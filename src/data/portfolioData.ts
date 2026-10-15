@@ -243,7 +243,7 @@ export const uiTranslations: Record<Language, {
       inquiryButton: "Projekt anfragen",
       liveButton: "Live ansehen",
       codeButton: "Code auf GitHub",
-      ndaNotice: "Kundenprojekt, interne Details unter NDA"
+      ndaNotice: "Kundenprojekt unter NDA, Details im Gespräch"
     },
     passions: {
       badge: "Persönlichkeit & Werte",
@@ -350,7 +350,7 @@ export const uiTranslations: Record<Language, {
       inquiryButton: "Ask about this project",
       liveButton: "View live",
       codeButton: "Code on GitHub",
-      ndaNotice: "Client project, internal details under NDA"
+      ndaNotice: "Client project under NDA, details on request"
     },
     passions: {
       badge: "Personality & Values",
@@ -584,11 +584,11 @@ export const portfolioDataDE: PortfolioData = {
     },
     {
       id: "mobile-onboarding-hr",
-      title: "RWE+You: Mobile Onboarding-App und HR-Dashboard",
+      title: "Mobile Onboarding-Anwendung und HR-Dashboard",
       category: "Greenfield Mobile & Web",
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
-      client: "RWE",
+      client: "Energiekonzern",
       image: "/assets/proj2.jpg",
       shortDesc: "Greenfield-Architektur mit Next.js: Mobile Onboarding-App für neue Mitarbeiter gepaart mit einem datenintensiven HR-Dashboard, Auth.js, Zustand und GraphQL.",
       fullDesc: "Ganzheitliche Konzeption und Implementierung einer mobilen Mitarbeiter-Onboarding-App sowie des dazugehörigen Administrations-Dashboards von Grund auf (Greenfield) für einen großen Energiekonzern unter Einsatz von Next.js, React und TypeScript im Nx-Monorepo. Aufbau einer intuitiven, fehlertoleranten Benutzerführung mit typsicherer Validierung komplexer Formulare mittels React Hook Form und Zod. Implementierung eines schlanken, reaktiven globalen State Managements via Zustand und Integration sicherer Login- und Rollenstrukturen über Auth.js. Schnittstellendesign und optimierter Datenabruf via GraphQL in enger Abstimmung mit dem Backend-Team sowie partnerschaftliche UX-Umsetzung mit Product Ownern.",
@@ -609,11 +609,11 @@ export const portfolioDataDE: PortfolioData = {
     },
     {
       id: "vorsorgeportale",
-      title: "Vorsorgeportale Move37 und ZF Vorsorge",
+      title: "Vorsorgeportale für betriebliche Altersvorsorge",
       category: "Kundenportal",
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
-      client: "Decadia · Kundenportale zur betrieblichen Altersvorsorge",
+      client: "Kundenportale zur betrieblichen Altersvorsorge",
       image: "/assets/proj3.jpg",
       shortDesc: "Fortlaufende Weiterentwicklung zweier hochfrequentierter Kundenportale: Modulare UI/UX-Modernisierung hin zu barrierearmen, voll responsiven Komponenten.",
       fullDesc: "Fortlaufende Betreuung, Skalierung und funktionale Erweiterung von zwei geschäftskritischen, hochfrequentierten Kundenanwendungen zur betrieblichen Altersvorsorge. Überarbeitung bestehender Frontend-Strukturen auf React-Basis hin zu barrierearmen, voll responsiven und modularen Komponenten. Technische Ausgestaltung neuer Fachmodule von der initialen Stakeholder-Abstimmung bis zum stabilen Produktivgang im agilen Scrum-Setup.",
@@ -910,11 +910,11 @@ export const portfolioDataEN: PortfolioData = {
     },
     {
       id: "mobile-onboarding-hr",
-      title: "RWE+You: Mobile Onboarding App and HR Dashboard",
+      title: "Mobile Onboarding App and HR Dashboard",
       category: "Greenfield Mobile & Web",
       period: "06/2023 - 07/2025",
       role: "Frontend Engineer",
-      client: "RWE",
+      client: "Leading Energy Corporation",
       image: "/assets/proj2.jpg",
       shortDesc: "Greenfield architecture with Next.js: Mobile onboarding app for new hires paired with a data-intensive HR administration dashboard, Auth.js, Zustand, and GraphQL.",
       fullDesc: "Holistic greenfield conception and development of an employee onboarding mobile app and companion administrative dashboard from scratch for a major energy corporation using Next.js, React, and TypeScript within an Nx monorepo. Built an intuitive, fault-tolerant user journey with strict type-safe form validation using React Hook Form and Zod. Established lean reactive global state with Zustand and integrated secure role-based login workflows via Auth.js. Designed and optimized GraphQL queries in close alignment with the backend team and product owners.",
@@ -935,11 +935,11 @@ export const portfolioDataEN: PortfolioData = {
     },
     {
       id: "vorsorgeportale",
-      title: "Pension Portals Move37 and ZF Vorsorge",
+      title: "Customer Portals for Company Pensions",
       category: "Customer Portal",
       period: "08/2023 - 04/2026",
       role: "Frontend Engineer",
-      client: "Decadia · Customer portals for company pensions",
+      client: "Customer Portals for Corporate Pension Schemes",
       image: "/assets/proj3.jpg",
       shortDesc: "Continuous scaling and modular UI/UX modernization of two high-traffic customer portals toward accessible, fully responsive components.",
       fullDesc: "Continuous evolution, scaling, and feature expansion of two business-critical customer portals for company pension management. Refactored existing React frontend structures into accessible (a11y-compliant), fully responsive, and modular components. Took technical ownership of new functional modules from initial stakeholder grooming through to stable production releases in an agile Scrum team.",
