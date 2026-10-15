@@ -1,9 +1,15 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { Briefcase, GraduationCap, Quote, CheckCircle2, Terminal, Globe } from 'lucide-react';
+import { GraduationCap, Quote, CheckCircle2, Globe } from 'lucide-react';
+import type { PortfolioData } from '@/data/portfolioData';
+import type { Language, UiDictionary } from '@/i18n/dictionaries';
 
-export const ExperienceAndSkills: React.FC = () => {
-  const { data, ui, lang } = useLanguage();
+interface ExperienceAndSkillsProps {
+  lang: Language;
+  data: Pick<PortfolioData, 'referenceLetter' | 'experience' | 'education' | 'skillCategories' | 'languages'>;
+  ui: Pick<UiDictionary, 'experience'>;
+}
+
+export const ExperienceAndSkills: React.FC<ExperienceAndSkillsProps> = ({ lang, data, ui }) => {
 
   return (
     <section id="experience" className="py-24 sm:py-32 px-6 sm:px-12 max-w-7xl mx-auto border-t border-white/5">

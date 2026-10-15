@@ -1,15 +1,18 @@
+'use client';
+
 import React, { useEffect } from 'react';
-import { ProjectItem } from '../data/portfolioData';
-import { useLanguage } from '../context/LanguageContext';
+import Image from 'next/image';
 import { X, CheckCircle2, Layers, Cpu, Mail } from 'lucide-react';
+import type { ProjectItem } from '@/data/portfolioData';
+import type { UiDictionary } from '@/i18n/dictionaries';
 
 interface ProjectModalProps {
   project: ProjectItem | null;
+  ui: Pick<UiDictionary, 'projects'>;
   onClose: () => void;
 }
 
-export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
-  const { ui } = useLanguage();
+export const ProjectModal: React.FC<ProjectModalProps> = ({ project, ui, onClose }) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -64,10 +67,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             
             {/* Hero Media Showcase */}
             <div className="relative h-56 sm:h-72 w-full overflow-hidden bg-black">
-              <img 
-                src={project.image} 
+              <Image
+                src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#171310] via-transparent to-black/40" />
 

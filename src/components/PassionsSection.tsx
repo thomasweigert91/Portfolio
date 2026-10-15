@@ -1,5 +1,6 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { PassionItem } from '@/data/portfolioData';
+import type { UiDictionary } from '@/i18n/dictionaries';
 import { Trees, Dog, Music, UtensilsCrossed, Landmark, Heart } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -10,8 +11,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Landmark,
 };
 
-export const PassionsSection: React.FC = () => {
-  const { data, ui } = useLanguage();
+interface PassionsSectionProps {
+  passions: PassionItem[];
+  ui: Pick<UiDictionary, 'passions'>;
+}
+
+export const PassionsSection: React.FC<PassionsSectionProps> = ({ passions, ui }) => {
 
   return (
     <section id="passions" className="py-24 sm:py-32 px-6 sm:px-12 max-w-7xl mx-auto border-t border-amber-900/20">
@@ -28,7 +33,7 @@ export const PassionsSection: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.passions.map((card, idx) => {
+        {passions.map((card, idx) => {
           const IconComp = iconMap[card.icon] || Heart;
           const isSpan = idx === 0 || idx === 3;
           return (

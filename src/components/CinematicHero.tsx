@@ -1,109 +1,39 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
-import {
-  ArrowDown,
-  ArrowRight,
-  Sparkles,
-  Heart,
-  Trees,
-  Compass,
-} from "lucide-react";
+import dynamic from "next/dynamic";
+import { ArrowRight, Sparkles } from "lucide-react";
+import type { VisualStoryScene } from "@/data/portfolioData";
+import type { Language, UiDictionary } from "@/i18n/dictionaries";
+
+// The canvas only paints the atmosphere; it is loaded on the client after the HTML is visible.
+const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
 interface CinematicHeroProps {
-  reducedMotion?: boolean;
+  lang: Language;
+  name: string;
+  email: string;
+  stats: { label: string; value: string }[];
+  scenes: VisualStoryScene[];
+  ui: Pick<UiDictionary, "hero">;
 }
 
-export const CinematicHero: React.FC<CinematicHeroProps> = () => {
-  const { lang, data, ui } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export const CinematicHero: React.FC<CinematicHeroProps> = ({
+  lang,
+  name,
+  email,
+  stats,
+  scenes,
+  ui,
+}) => {
+  const containerRef = useRef<HTMLElement>(null);
+  const progressRef = useRef(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeBeat, setActiveBeat] = useState<
     "scene1" | "trans1" | "scene2" | "trans2" | "scene3"
   >("scene1");
-  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Preloaded image references
-  const imagesRef = useRef<{ [key: string]: HTMLImageElement }>({});
-  const dustParticlesRef = useRef<
-    Array<{
-      x: number;
-      y: number;
-      z: number;
-      size: number;
-      alpha: number;
-      speed: number;
-      angle: number;
-    }>
-  >([]);
-  const mouseRef = useRef<{
-    x: number;
-    y: number;
-    targetX: number;
-    targetY: number;
-  }>({ x: 0, y: 0, targetX: 0, targetY: 0 });
-  const animFrameIdRef = useRef<number | null>(null);
-  const smoothProgressRef = useRef(0);
-
-  // Initialize warm ambient dust & sunlight motes
-  useEffect(() => {
-    const count = 120;
-    const particles = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: (Math.random() - 0.5) * 2000,
-        y: (Math.random() - 0.5) * 2000,
-        z: Math.random() * 1000 + 100,
-        size: Math.random() * 2.5 + 1.0,
-        alpha: Math.random() * 0.6 + 0.2,
-        speed: Math.random() * 0.4 + 0.15,
-        angle: Math.random() * Math.PI * 2,
-      });
-    }
-    dustParticlesRef.current = particles;
-  }, []);
-
-  // Preload Scene visual plates
-  useEffect(() => {
-    const urls = {
-      scene1: "/assets/scene1.jpg",
-      scene2: "/assets/scene2.jpg",
-      scene3: "/assets/scene3.jpg",
-    };
-
-    let loadedCount = 0;
-    const entries = Object.entries(urls);
-
-    entries.forEach(([key, src]) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        loadedCount++;
-        imagesRef.current[key] = img;
-        if (loadedCount === entries.length) {
-          setImagesLoaded(true);
-        }
-      };
-      img.onerror = () => {
-        console.warn(`Could not load visual plate: ${src}`);
-        loadedCount++;
-        if (loadedCount === entries.length) {
-          setImagesLoaded(true);
-        }
-      };
-    });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      mouseRef.current.targetX = (e.clientX / innerWidth - 0.5) * 25;
-      mouseRef.current.targetY = (e.clientY / innerHeight - 0.5) * 25;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Native Scroll listener without hijacking
+  // Native scroll listener without hijacking
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
@@ -115,6 +45,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
 
       const current = -rect.top;
       const progress = Math.max(0, Math.min(1, current / totalScrollable));
+      progressRef.current = progress;
       setScrollProgress(progress);
 
       if (progress < 0.26) {
@@ -135,237 +66,6 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Canvas Render Loop (60 FPS with warm golden dust and smooth camera dolly)
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let running = true;
-
-    const render = () => {
-      if (!running) return;
-
-      // Mouse lerp
-      mouseRef.current.x +=
-        (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
-      mouseRef.current.y +=
-        (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
-
-      // Smooth progress lerp
-      smoothProgressRef.current +=
-        (scrollProgress - smoothProgressRef.current) * 0.1;
-      const p = smoothProgressRef.current;
-
-      // High DPI Resize
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
-      if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-      }
-
-      ctx.save();
-      ctx.scale(dpr, dpr);
-
-      // Warm background base
-      ctx.fillStyle = "#14110F";
-      ctx.fillRect(0, 0, width, height);
-
-      // 1. Draw Visual Plates with seamless blending, subtle camera breathing & mobile-adaptive focal alignment
-      const drawPlate = (
-        img: HTMLImageElement | undefined,
-        alpha: number,
-        scale: number,
-        panX: number,
-        panY: number,
-        mobileFocalX: number = 0.5,
-        mobileFocalY: number = 0.5,
-        desktopFocalX: number = 0.5,
-        desktopFocalY: number = 0.5,
-      ) => {
-        if (!img || alpha <= 0.001) return;
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
-
-        const imgRatio = img.width / img.height;
-        const screenRatio = width / height;
-        let renderW = width;
-        let renderH = height;
-
-        if (screenRatio > imgRatio) {
-          renderW = width * scale;
-          renderH = (width / imgRatio) * scale;
-        } else {
-          renderH = height * scale;
-          renderW = height * imgRatio * scale;
-        }
-
-        const isMobile = width < 768;
-        const focalX = isMobile ? mobileFocalX : desktopFocalX;
-        const focalY = isMobile ? mobileFocalY : desktopFocalY;
-
-        // When image width exceeds screen width (portrait/mobile), center on target focalX
-        let offsetX: number;
-        if (renderW > width) {
-          offsetX = width * 0.5 - renderW * focalX + panX;
-          // Clamp so image always covers the entire viewport seamlessly
-          offsetX = Math.min(0, Math.max(width - renderW, offsetX));
-        } else {
-          offsetX = (width - renderW) / 2 + panX;
-        }
-
-        // When image height exceeds screen height, center on target focalY
-        let offsetY: number;
-        if (renderH > height) {
-          offsetY = height * 0.5 - renderH * focalY + panY;
-          offsetY = Math.min(0, Math.max(height - renderH, offsetY));
-        } else {
-          offsetY = (height - renderH) / 2 + panY;
-        }
-
-        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-        ctx.restore();
-      };
-
-      const img1 = imagesRef.current["scene1"];
-      const img2 = imagesRef.current["scene2"];
-      const img3 = imagesRef.current["scene3"];
-
-      // Piecewise scene alphas
-      // Scene 1: 0.0 -> 0.35
-      let a1 = 1;
-      let s1 = 1.0 + p * 0.12;
-      if (p > 0.22) {
-        a1 = Math.max(0, 1 - (p - 0.22) / 0.18);
-      }
-
-      // Scene 2: 0.22 -> 0.76
-      let a2 = 0;
-      let s2 = 1.04 - (p - 0.24) * 0.06;
-      if (p >= 0.22 && p <= 0.42) {
-        a2 = (p - 0.22) / 0.2;
-      } else if (p > 0.42 && p <= 0.68) {
-        a2 = 1;
-      } else if (p > 0.68) {
-        a2 = Math.max(0, 1 - (p - 0.68) / 0.16);
-      }
-
-      // Scene 3: 0.70 -> 1.0
-      let a3 = 0;
-      let s3 = 1.06 - (p - 0.7) * 0.06;
-      if (p > 0.7) {
-        a3 = Math.min(1, (p - 0.7) / 0.18);
-      }
-
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
-
-      // Draw plates with precision focal targeting:
-      // Scene 1: Cabin deck with laptop, coffee mug, and forest sunlight
-      drawPlate(img1, a1, s1, mx * 0.5, my * 0.5, 0.5, 0.58, 0.5, 0.5);
-      // Scene 2: Thomas cooking on left + skillet
-      drawPlate(img2, a2, s2, mx * 0.6, my * 0.6, 0.32, 0.3, 0.5, 0.5);
-      // Scene 3: Dogs resting by fireplace
-      drawPlate(img3, a3, s3, mx * 0.4, my * 0.4, 0.5, 0.4, 0.5, 0.5);
-
-      // 2. Warm Sunlit / Hearth Vignette Overlay (calibrated for mobile clarity)
-      const isMobile = width < 768;
-      const maxDim = Math.max(width, height);
-      const grad = ctx.createRadialGradient(
-        width / 2,
-        isMobile ? height * 0.35 : height / 2,
-        isMobile ? width * 0.3 : width * 0.25,
-        width / 2,
-        isMobile ? height * 0.35 : height / 2,
-        isMobile ? maxDim * 0.75 : width * 0.85,
-      );
-      grad.addColorStop(0, "rgba(20, 17, 15, 0)");
-      grad.addColorStop(
-        0.65,
-        isMobile ? "rgba(20, 17, 15, 0.25)" : "rgba(20, 17, 15, 0.45)",
-      );
-      grad.addColorStop(
-        1,
-        isMobile ? "rgba(15, 12, 10, 0.75)" : "rgba(15, 12, 10, 0.90)",
-      );
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
-
-      // 3. Warm Floating Golden Dust Motes / Sunlight Particles
-      const particles = dustParticlesRef.current;
-      const scrollDrift =
-        Math.abs(scrollProgress - smoothProgressRef.current) * 80;
-
-      for (let i = 0; i < particles.length; i++) {
-        const pt = particles[i];
-
-        pt.z -= pt.speed + scrollDrift * 0.08;
-        pt.angle += 0.01;
-
-        if (pt.z <= 20) {
-          pt.z = 1000;
-          pt.x = (Math.random() - 0.5) * 2000;
-          pt.y = (Math.random() - 0.5) * 2000;
-        }
-
-        const k = 400 / pt.z;
-        const driftX = Math.cos(pt.angle) * 15;
-        const driftY = Math.sin(pt.angle) * 15;
-        const screenX = width / 2 + (pt.x + mx * 4 + driftX) * k;
-        const screenY = height / 2 + (pt.y + my * 4 + driftY) * k;
-
-        if (
-          screenX >= 0 &&
-          screenX <= width &&
-          screenY >= 0 &&
-          screenY <= height
-        ) {
-          const depthAlpha = Math.min(1, (1000 - pt.z) / 800) * pt.alpha;
-
-          // Warm amber & honey tones for organic sunlight feel
-          const isHoney = i % 3 === 0;
-          ctx.fillStyle = isHoney
-            ? `rgba(245, 158, 11, ${depthAlpha * 0.75})`
-            : `rgba(229, 152, 58, ${depthAlpha * 0.65})`;
-
-          ctx.beginPath();
-          ctx.arc(screenX, screenY, Math.max(0.6, pt.size * k), 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      // 4. Subtle telemetry badge
-      ctx.save();
-      ctx.font = '10px "JetBrains Mono", monospace';
-      ctx.fillStyle = "rgba(243, 239, 234, 0.22)";
-      const telemetryTag =
-        lang === "de" ? "NATUR & HANDWERK" : "NATURE & CRAFT";
-      ctx.fillText(
-        `${telemetryTag} · ${(p * 100).toFixed(0)}%`,
-        24,
-        height - 16,
-      );
-      if (width >= 640) {
-        ctx.fillText(`HENSTEDT-ULZBURG · HAMBURG`, width - 210, height - 16);
-      }
-      ctx.restore();
-
-      ctx.restore();
-      animFrameIdRef.current = requestAnimationFrame(render);
-    };
-
-    animFrameIdRef.current = requestAnimationFrame(render);
-
-    return () => {
-      running = false;
-      if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
-    };
-  }, [scrollProgress, activeBeat, lang]);
-
   // Jump to specific scene
   const scrollToScene = (sceneIndex: number) => {
     if (!containerRef.current) return;
@@ -376,7 +76,6 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
     window.scrollTo({ top: targetScroll, behavior: "smooth" });
   };
 
-  const scenes = data.visualStory;
 
   // Scene Opacities & Transforms
   const scene1Opacity =
@@ -406,24 +105,15 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
     >
       {/* Sticky Fullscreen Warm Canvas Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Canvas Layer */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full block select-none pointer-events-none"
+        {/* Canvas Layer (client-only, never blocks the HTML text below) */}
+        <HeroCanvas
+          progressRef={progressRef}
+          telemetryTag={lang === "de" ? "NATUR & HANDWERK" : "NATURE & CRAFT"}
+          locationTag="HENSTEDT-ULZBURG · HAMBURG"
         />
 
         {/* Cinematic Backdrop Scrim (Subtle on mobile so subjects shine through; deeper on desktop) */}
         <div className="absolute inset-0 bg-[#14110F]/20 sm:bg-[#14110F]/35 pointer-events-none z-10" />
-
-        {/* Loading Poster */}
-        {!imagesLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#14110F] z-30">
-            <div className="flex items-center gap-3 text-amber-300 font-mono text-xs tracking-wider">
-              <Sparkles className="w-4 h-4 animate-spin text-amber-400" />
-              <span>{ui.hero.loading}</span>
-            </div>
-          </div>
-        )}
 
         {/* Top Warm Progress Indicator */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-transparent z-20">
@@ -496,7 +186,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1815]/90 border border-amber-500/30 text-amber-300 text-xs font-mono tracking-wider mb-4 sm:mb-6 backdrop-blur-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                 <span>
-                  {scenes[0].sceneNumber} · {data.profile.name} · Frontend
+                  {scenes[0].sceneNumber} · {name} · Frontend
                   Engineer
                 </span>
               </div>
@@ -651,16 +341,16 @@ export const CinematicHero: React.FC<CinematicHeroProps> = () => {
                 )}
 
                 <a
-                  href={`mailto:${data.profile.email}`}
+                  href={`mailto:${email}`}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-stone-200 font-mono text-xs border border-white/15 hover:border-white/25 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] backdrop-blur-md active:scale-[0.98]"
                 >
-                  <span>{data.profile.email}</span>
+                  <span>{email}</span>
                 </a>
               </div>
 
               {/* Stats aus Lebenslauf */}
               <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
-                {data.profile.stats.map((stat, i) => (
+                {stats.map((stat, i) => (
                   <div key={i} className="p-1 sm:p-0">
                     <div className="text-lg sm:text-2xl font-bold font-fraunces text-amber-300 tracking-tight">
                       {stat.value}

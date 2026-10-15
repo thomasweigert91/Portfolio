@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
-@theme {
-  --font-fraunces: 'Fraunces', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+/* Font families come from next/font (self-hosted) via CSS variables set on <html>. */
+@theme inline {
+  --font-fraunces: var(--font-fraunces-src), Georgia, serif;
+  --font-sans: var(--font-jakarta-src), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-src), ui-monospace, monospace;
+}
 
+@theme {
   --color-timber-950: #0F0C0A;
   --color-timber-900: #14110F;
   --color-timber-850: #1A1613;
@@ -24,7 +27,7 @@
   html {
     background-color: #14110F;
     color: #F5F5F4;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-sans);
   }
 
   /* Custom warm scrollbar */

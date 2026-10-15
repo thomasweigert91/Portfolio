@@ -1,17 +1,19 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { Sliders, Menu, X, Globe, Download } from 'lucide-react';
+import Image from 'next/image';
+import { Sliders, Menu, X, Download } from 'lucide-react';
+import type { Language, UiDictionary } from '@/i18n/dictionaries';
+import { useMotion } from './MotionProvider';
 
 interface NavbarProps {
-  reducedMotion: boolean;
-  onToggleReducedMotion: () => void;
+  lang: Language;
+  name: string;
+  ui: Pick<UiDictionary, 'nav' | 'motion'>;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  reducedMotion,
-  onToggleReducedMotion
-}) => {
-  const { lang, setLang, data, ui } = useLanguage();
+export const Navbar: React.FC<NavbarProps> = ({ lang, name, ui }) => {
+  const { reducedMotion, toggleReducedMotion: onToggleReducedMotion } = useMotion();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -42,11 +44,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Brand / Logo Lockup */}
         <a href="#story" className="group flex items-center gap-3.5 focus:outline-none shrink-0">
           <div className="relative w-10 h-10 flex items-center justify-center rounded-2xl bg-[#1E1916] border border-amber-500/30 p-1.5 group-hover:border-amber-400 transition-all duration-300 shadow-[0_0_15px_rgba(229,152,58,0.15)] shrink-0">
-            <img src="/logo.svg" alt="Thomas Weigert Logo" className="w-full h-full object-contain" />
+            <Image src="/logo.svg" alt="" width={28} height={28} className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col whitespace-nowrap">
             <span className="font-fraunces font-bold text-base tracking-tight text-white group-hover:text-amber-300 transition-colors whitespace-nowrap">
-              {data.profile.name}
+              {name}
             </span>
             <span className="text-xs font-mono text-amber-300/85 tracking-wider uppercase whitespace-nowrap">
               Frontend Engineer
@@ -71,31 +73,35 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 ml-auto shrink-0 pl-4">
           {/* Language Toggle */}
           <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono shrink-0">
-            <button
-              onClick={() => setLang('de')}
+            <a
+              href="/de/"
+              hrefLang="de"
+              aria-current={lang === 'de' ? 'page' : undefined}
               className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'de'
                   ? 'bg-amber-500 text-[#14110F] shadow-sm'
                   : 'text-stone-400 hover:text-white'
               }`}
               title="Auf Deutsch wechseln"
-              aria-label="Auf Deutsch wechseln"
+              aria-label="Deutsch"
             >
               DE
-            </button>
-            <span className="text-stone-600 text-xs px-0.5 select-none">|</span>
-            <button
-              onClick={() => setLang('en')}
+            </a>
+            <span className="text-stone-600 text-xs px-0.5 select-none" aria-hidden="true">|</span>
+            <a
+              href="/en/"
+              hrefLang="en"
+              aria-current={lang === 'en' ? 'page' : undefined}
               className={`px-2.5 py-1 rounded-lg transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold cursor-pointer active:scale-95 ${
                 lang === 'en'
                   ? 'bg-amber-500 text-[#14110F] shadow-sm'
                   : 'text-stone-400 hover:text-white'
               }`}
               title="Switch to English"
-              aria-label="Switch to English"
+              aria-label="English"
             >
               EN
-            </button>
+            </a>
           </div>
 
           {/* Motion Mode Control */}
@@ -131,23 +137,29 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2.5 lg:hidden">
           {/* Mobile quick language toggle */}
           <div className="flex items-center p-0.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs font-mono">
-            <button
-              onClick={() => setLang('de')}
+            <a
+              href="/de/"
+              hrefLang="de"
+              aria-current={lang === 'de' ? 'page' : undefined}
+              aria-label="Deutsch"
               className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'de' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
               DE
-            </button>
-            <span className="text-stone-600 text-xs px-0.5 select-none">|</span>
-            <button
-              onClick={() => setLang('en')}
+            </a>
+            <span className="text-stone-600 text-xs px-0.5 select-none" aria-hidden="true">|</span>
+            <a
+              href="/en/"
+              hrefLang="en"
+              aria-current={lang === 'en' ? 'page' : undefined}
+              aria-label="English"
               className={`px-2.5 py-1 rounded-lg font-semibold active:scale-95 transition-all ${
                 lang === 'en' ? 'bg-amber-500 text-[#14110F]' : 'text-stone-400'
               }`}
             >
               EN
-            </button>
+            </a>
           </div>
 
           {/* Mobile Quick CV Download */}
